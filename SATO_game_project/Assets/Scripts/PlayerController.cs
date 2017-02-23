@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//TODO Add event listeners for player input (move/ fire)
+		//TODO Just checking if it considers me a contributor now
 		
 	}
 	
