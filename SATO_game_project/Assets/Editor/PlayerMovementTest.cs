@@ -11,6 +11,12 @@ public class PlayerMovementTest
 
         Assert.That(playerController.Player_rb.position.x, Is.InRange(playerController.PlayerBoundary.xMin, playerController.PlayerBoundary.xMax));
         Assert.That(playerController.Player_rb.position.z, Is.InRange(playerController.PlayerBoundary.zMin, playerController.PlayerBoundary.zMax));
-        //Assert.That(playerController.Player_rb.position.y, Is.EqualTo(0.0f));
+        Assert.That(playerController.Player_rb.position.y, Is.EqualTo(0.0f));
+    }
+
+    [Test]
+    public void PlayerCannotRotate()
+    {
+
     }
 }

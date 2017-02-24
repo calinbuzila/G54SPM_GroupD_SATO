@@ -9,20 +9,20 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody Player_rb;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         Player_rb = GetComponent<Rigidbody>();
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
 
-	}
+    }
 
     // FixedUpdate used for physics
-    void FixedUpdate ()
+    void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
             0.0f,
             Mathf.Clamp(Player_rb.position.z, PlayerBoundary.zMin, PlayerBoundary.zMax)
         );
+
+
+        Player_rb.freezeRotation = true;
+
     }
 }
 
@@ -44,3 +48,4 @@ public class Boundary
 {
     public float xMin, xMax, zMin, zMax;
 }
+
