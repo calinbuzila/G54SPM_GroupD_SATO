@@ -1,12 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/PlayerController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UnityTestTools\UnitTesting\Editor\EnemyTests.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\MainController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\MainBoundary.cs" Line="1" Column="1" />
+      <File FileName="Assets\UnityTestTools\UnitTesting\Editor\EnemyTests.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="D:\NotsUniWork\UnityWork\SATO_BS\SATO_game_project\Assets\Scripts\MainController.cs" line="47" column="1" />
+      <Breakpoint file="D:\NotsUniWork\UnityWork\SATO_BS\SATO_game_project\Assets\Scripts\MainController.cs" line="34" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
