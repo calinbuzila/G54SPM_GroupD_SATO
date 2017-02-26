@@ -8,20 +8,27 @@ public class PlayerController : MonoBehaviour
     public Boundary PlayerBoundary;
 
     public Rigidbody Player_rb;
+	public GameObject shot;
+	public Transform shotSpawn;
+	public float fireRate;
 
-    // Use this for initialization
+	protected float _nextFire;
+
     void Start()
     {
         Player_rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+		if (Input.GetKeyDown (KeyCode.Space) && Time.time > _nextFire)
+		{
+			_nextFire = Time.time + fireRate;
+//			GameObject bulletClone = 
+				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); // as GameObject
+		}
     }
 
-    // FixedUpdate used for physics
     void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
@@ -39,7 +46,6 @@ public class PlayerController : MonoBehaviour
 
 
         Player_rb.freezeRotation = true;
-
     }
 }
 
