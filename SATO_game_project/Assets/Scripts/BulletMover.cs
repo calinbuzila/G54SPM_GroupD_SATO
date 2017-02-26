@@ -5,10 +5,12 @@ using UnityEngine;
 public class BulletMover : MonoBehaviour
 {
 	public float speed;
-	protected const Rigidbody BULLET_RB = GetComponent<Rigidbody>();
+	protected Rigidbody _bulletRB;
 
-	void Start () {
-		
+	void Start ()
+	{
+		_bulletRB = GetComponent<Rigidbody> ();
+		_bulletRB.velocity = transform.right * speed;
 	}
 
 	//TODO Handle collision with enemy
