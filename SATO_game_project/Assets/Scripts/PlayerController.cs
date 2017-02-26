@@ -24,8 +24,7 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Space) && Time.time > _nextFire)
 		{
 			_nextFire = Time.time + fireRate;
-//			GameObject bulletClone = 
-				Instantiate (shot, shotSpawn.position, shotSpawn.rotation); // as GameObject
+			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
     }
 
