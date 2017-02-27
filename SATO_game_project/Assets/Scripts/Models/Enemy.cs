@@ -10,6 +10,8 @@ namespace Assets.Scripts
         #region properties and variables
 
         private static int nrOfEnemies = 0;
+        private static float boundaryX;
+        private static float boundaryZ;
         public int NrOfEnemies
         {
             get
@@ -21,9 +23,8 @@ namespace Assets.Scripts
                 nrOfEnemies = value;
             }
         }
-
-        private float positionScaleX;
-        private float positionScaleZ;
+        private static float positionScaleX;
+        private static float positionScaleZ;
         private string name;
         public static List<Dictionary<float, float>> positionings;
 
@@ -58,6 +59,28 @@ namespace Assets.Scripts
             set
             {
                 name = value;
+            }
+        }
+        public float BoundaryX
+        {
+            get
+            {
+                return boundaryX;
+            }
+            set
+            {
+                boundaryX = value;
+            }
+        }
+        public float BoundaryZ
+        {
+            get
+            {
+                return boundaryZ;
+            }
+            set
+            {
+                boundaryZ = value;
             }
         }
 

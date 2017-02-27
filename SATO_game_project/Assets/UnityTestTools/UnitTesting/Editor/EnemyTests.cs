@@ -56,8 +56,8 @@ public class EnemyTests
     /// <param name="scaleZ"></param>
     /// <param name="expectedX"></param>
     /// <param name="expectedZ"></param>
-    [TestCase(25.0f, 13.0f, 39.0f, 18.0f)]
-    [TestCase(25.0f, 13.0f, 39.0f, 18.0f)]
+    [TestCase(25.0f, 13.0f, 33.0f, 18.0f)]
+    [TestCase(25.0f, 13.0f, 33.0f, 18.0f)]
     public void SpawnInDesignatedArea(float scaleX, float scaleZ, float expectedX, float expectedZ)
     {
         Enemy enemy = new Enemy();
@@ -65,6 +65,8 @@ public class EnemyTests
         enemy.PositionScaleZ = scaleZ;
         Debug.Log(enemy.PositionScaleX + "/" + expectedX);
         // -7 error scale to take into consideration
+        Assert.That(expectedX, Is.EqualTo(enemy.BoundaryX));
+        Assert.That(expectedZ, Is.EqualTo(enemy.BoundaryZ));
         Assert.True(enemy.PositionScaleX >= (expectedX / 2) && enemy.PositionScaleX <= (expectedX - 7));
         Assert.True(enemy.PositionScaleZ >= 0 && enemy.PositionScaleZ <= expectedZ);
 
