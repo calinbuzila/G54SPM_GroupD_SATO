@@ -65,6 +65,8 @@ public class EnemyTests
         enemy.PositionScaleZ = scaleZ;
         Debug.Log(enemy.PositionScaleX + "/" + expectedX);
         // -7 error scale to take into consideration
+        Assert.That(expectedX, Is.EqualTo(enemy.BoundaryX));
+        Assert.That(expectedZ, Is.EqualTo(enemy.BoundaryZ));
         Assert.True(enemy.PositionScaleX >= (expectedX / 2) && enemy.PositionScaleX <= (expectedX - 7));
         Assert.True(enemy.PositionScaleZ >= 0 && enemy.PositionScaleZ <= expectedZ);
 

@@ -79,6 +79,8 @@ public class MainController : MonoBehaviour
                 // !!!Run the test after running the scene, the increased number still persists
                 enemyModel.increaseEnemies();
                 enemyModel.Name = "Enemy";
+                enemyModel.BoundaryX = mainBoundary.localScale.x;
+                enemyModel.BoundaryZ = mainBoundary.localScale.z;
                 newEnemy.name = enemyModel.Name;
                 enemyModel.PositionScaleX = spawnPosition.x;
                 enemyModel.PositionScaleZ = spawnPosition.z;
