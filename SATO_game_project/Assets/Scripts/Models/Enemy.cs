@@ -16,10 +16,15 @@ namespace Assets.Scripts
             {
                 return nrOfEnemies;
             }
+            set
+            {
+                nrOfEnemies = value;
+            }
         }
 
         private float positionScaleX;
         private float positionScaleZ;
+        private string name;
         public static List<Dictionary<float, float>> positionings;
 
         public float PositionScaleX
@@ -44,6 +49,19 @@ namespace Assets.Scripts
                 positionScaleZ = value;
             }
         }
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+
 
         #endregion
 
@@ -62,7 +80,6 @@ namespace Assets.Scripts
         {
             nrOfEnemies += 1;
         }
-
 
     }
 }
