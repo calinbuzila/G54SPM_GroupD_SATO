@@ -49,3 +49,6 @@ iBitInstaller.exe
 NSISPortable/Data
 NSISPortable/App/NSIS/nsiconf.nsh
 builds/
+/SATO_game_project/SATO_game_project.csproj
+/SATO_game_project/SATO_game_project.sln
+/SATO_game_project/SATO_game_project.Editor.csproj
