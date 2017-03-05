@@ -11,6 +11,11 @@ public class LevelController : MonoBehaviour {
 
 	void Start()
 	{
+		Initialise ();
+	}
+
+	public void Initialise()
+	{
 		SetScore (0);
 	}
 

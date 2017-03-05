@@ -14,6 +14,7 @@ public class DestroyByContact : MonoBehaviour
 			Destroy (other.gameObject);
 			Destroy (gameObject);
 
+			//TODO Migrate incrementation of score to Enemy destructor
 			levelController = GameObject.FindObjectOfType (typeof(LevelController)) as LevelController;
 			levelController.IncrementScore();
 

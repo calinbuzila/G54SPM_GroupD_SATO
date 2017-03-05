@@ -11,6 +11,7 @@ public class ScoreTests {
 	public void ScoreInitialisesToZero() 
 	{
 		LevelController levelController = new LevelController();
+		levelController.Initialise ();
 		Assert.AreEqual(0, levelController.GetScore());
 	}
 
