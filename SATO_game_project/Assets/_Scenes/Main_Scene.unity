@@ -247,7 +247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyShip: {fileID: 1523728918804418, guid: c76291bb7059d72498f759360d308de5, type: 2}
   mainBoundary: {fileID: 703663683}
-  nrOfEnemies: 5
+  nrOfEnemies: 7
   spawnWait: 2
   spawnStartWait: 4
   spawnWaveWait: 0

@@ -39,18 +39,18 @@ public class MainController : MonoBehaviour
     //for key press C it spawns an enemy
     void FixedUpdate()
     {
-        bool spawnKey = Input.GetKeyDown(KeyCode.C);
-        if (spawnKey)
-        {
-            StartCoroutine(SpawnEnemies());
-        }
+        //bool spawnKey = Input.GetKeyDown(KeyCode.C);
+        //if (spawnKey)
+        //{
+        //    StartCoroutine(SpawnEnemies());
+        //}
     }
 
 
     /// <summary>
     /// Spawn single enemy on scene
     /// </summary>
-    protected void SpawnEnemy()
+    public void SpawnEnemy()
     {
         float xAxis;
         float yAxis;
@@ -60,8 +60,8 @@ public class MainController : MonoBehaviour
         // get the boundaries for the Main Boundary game object
         if (mainBoundary != null)
         {
-            xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x -7);
-            zAxis = Random.Range(0, mainBoundary.localScale.z / 2);
+            xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
+            zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
             //Debug.Log(xAxis/2 + "XAXIS");
         }
 
@@ -70,20 +70,48 @@ public class MainController : MonoBehaviour
         // need to use Euler Angles to set up the rotation of the object
         Vector3 eulerAngles = new Vector3(0, 0, 90);
         spawnRotation = Quaternion.Euler(eulerAngles);
+        GameObject newEnemy = null;
         if (enemyShip != null)
         {
+            if (Enemy.positionings.ContainsKey(spawnPosition.x))
+            {
+                while (Enemy.positionings.ContainsKey(spawnPosition.x))
+                {
+                    xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
+                    while (Enemy.positionings.ContainsValue(spawnPosition.z))
+                    {
+                        zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
+                    }
+                }
+            }
+            else if (Enemy.positionings.ContainsValue(spawnPosition.z))
+            {
+                while (Enemy.positionings.ContainsKey(spawnPosition.z))
+                {
+                    zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
+                    while (Enemy.positionings.ContainsKey(spawnPosition.x))
+                    {
+                        xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
+                    }
+                }
+            }
+            else
+            {
+                Enemy.positionings.Add(spawnPosition.x, spawnPosition.z);
+                //Debug.Log(Enemy.positionings.Count +"EnemiesCounter");
+                newEnemy = Instantiate(enemyShip, spawnPosition, spawnRotation);
+            }
 
-            GameObject newEnemy = Instantiate(enemyShip, spawnPosition, spawnRotation);
             if (newEnemy != null)
             {
                 // !!!Run the test after running the scene, the increased number still persists
                 enemyModel.increaseEnemies();
                 enemyModel.Name = "Enemy";
-                enemyModel.BoundaryX = mainBoundary.localScale.x;
-                enemyModel.BoundaryZ = mainBoundary.localScale.z;
+                Enemy.BoundaryX = mainBoundary.localScale.x;
+                Enemy.BoundaryZ = mainBoundary.localScale.z;
                 newEnemy.name = enemyModel.Name;
-                enemyModel.PositionScaleX = spawnPosition.x;
-                enemyModel.PositionScaleZ = spawnPosition.z;
+                Enemy.PositionScaleX = spawnPosition.x;
+                Enemy.PositionScaleZ = spawnPosition.z;
             }
         }
     }
@@ -92,16 +120,26 @@ public class MainController : MonoBehaviour
     {
         //while (true)
         //{
-            // first enemy will appear after set timer returns a delay in the start coroutine caller method
-            yield return new WaitForSeconds(spawnStartWait);
+        // first enemy will appear after set timer returns a delay in the start coroutine caller method
+        yield return new WaitForSeconds(spawnStartWait);
 
-            for (int i = 0; i < nrOfEnemies; i++)
-            {
-                SpawnEnemy();
-                //after spawning first it returns a delay into the caller method: start coroutine
-                yield return new WaitForSeconds(spawnWait);
-            }
+        for (int i = 0; i < nrOfEnemies; i++)
+        {
+            SpawnEnemy();
+            //after spawning first it returns a delay into the caller method: start coroutine
+            yield return new WaitForSeconds(spawnWait);
+        }
 
         //}
     }
+
+
+    /// <summary>
+    /// Method used for calling routine from outside the MainController game object
+    /// </summary>
+    public void StartFromExternalSourceCouroutine()
+    {
+        StartCoroutine(SpawnEnemies());
+    }
+
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -9,47 +10,16 @@ namespace Assets.Scripts
     {
         #region properties and variables
 
-        private static int nrOfEnemies = 0;
-        private static float boundaryX;
-        private static float boundaryZ;
-        public int NrOfEnemies
-        {
-            get
-            {
-                return nrOfEnemies;
-            }
-            set
-            {
-                nrOfEnemies = value;
-            }
-        }
-        private static float positionScaleX;
-        private static float positionScaleZ;
-        private string name;
-        public static List<Dictionary<float, float>> positionings;
+        public static int NrOfEnemies = 0;
+        public static float BoundaryX;
+        public static float BoundaryZ;
 
-        public float PositionScaleX
-        {
-            get
-            {
-                return positionScaleX;
-            }
-            set
-            {
-                positionScaleX = value;
-            }
-        }
-        public float PositionScaleZ
-        {
-            get
-            {
-                return positionScaleZ;
-            }
-            set
-            {
-                positionScaleZ = value;
-            }
-        }
+        public static float PositionScaleX;
+        public static float PositionScaleZ;
+        private string name;
+        public static Dictionary<float, float> positionings;
+
+       
         public string Name
         {
             get
@@ -61,30 +31,7 @@ namespace Assets.Scripts
                 name = value;
             }
         }
-        public float BoundaryX
-        {
-            get
-            {
-                return boundaryX;
-            }
-            set
-            {
-                boundaryX = value;
-            }
-        }
-        public float BoundaryZ
-        {
-            get
-            {
-                return boundaryZ;
-            }
-            set
-            {
-                boundaryZ = value;
-            }
-        }
-
-
+      
 
         #endregion
 
@@ -93,7 +40,7 @@ namespace Assets.Scripts
         /// </summary>
         public Enemy()
         {
-
+            positionings = new Dictionary<float, float>();
         }
 
         /// <summary>
@@ -101,7 +48,12 @@ namespace Assets.Scripts
         /// </summary>
         public void increaseEnemies()
         {
-            nrOfEnemies += 1;
+            NrOfEnemies += 1;
+        }
+
+        public void decreaseEnemies()
+        {
+            NrOfEnemies -= 1;
         }
 
     }
