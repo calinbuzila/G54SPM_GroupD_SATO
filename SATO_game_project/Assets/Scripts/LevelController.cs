@@ -25,6 +25,7 @@ public class LevelController : MonoBehaviour {
 	public void AddToScore(int value)
 	{
 		PlayerScore += value;
+		CheckNotNegative ();
 	}
 
 	public int GetScore()
@@ -35,5 +36,14 @@ public class LevelController : MonoBehaviour {
 	public void SetScore(int value)
 	{
 		PlayerScore = value;
+		CheckNotNegative ();
+	}
+
+	protected void CheckNotNegative()
+	{
+		if (PlayerScore < 0)
+		{
+			PlayerScore = 0;
+		}
 	}
 }
