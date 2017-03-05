@@ -6,12 +6,17 @@ using UnityEngine;
 public class DestroyByContact : MonoBehaviour 
 {
     MainController mainController;
+	LevelController levelController;
 
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.GetComponent<Collider>().name == "Enemy") {
 			Destroy (other.gameObject);
 			Destroy (gameObject);
+
+			levelController = GameObject.FindObjectOfType (typeof(LevelController));
+			levelController.IncrementScore();
+
             Enemy enemyModel = new Enemy();
             enemyModel.decreaseEnemies();
             //Debug.Log(Enemy.NrOfEnemies);
