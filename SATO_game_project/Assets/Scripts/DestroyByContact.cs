@@ -14,7 +14,7 @@ public class DestroyByContact : MonoBehaviour
 			Destroy (other.gameObject);
 			Destroy (gameObject);
 
-			levelController = GameObject.FindObjectOfType (typeof(LevelController));
+			levelController = GameObject.FindObjectOfType (typeof(LevelController)) as LevelController;
 			levelController.IncrementScore();
 
             Enemy enemyModel = new Enemy();
