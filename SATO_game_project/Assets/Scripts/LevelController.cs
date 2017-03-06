@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
-	//TODO Implement health/ lives mechanic(s)
+	//TODO Consider branching score, lives, etc into their own sub-classes.
+	//TODO Implement health/ lives mechanic(s).
 	protected static int PlayerScore;
     public Text scoreText;
 
@@ -22,13 +23,11 @@ public class LevelController : MonoBehaviour {
     public void IncrementScore()
 	{
 		AddToScore (1);
-        UpdateScoreDisplay();
     }
 
     public void DecrementScore()
 	{
 		AddToScore (-1);
-        UpdateScoreDisplay();
     }
 
     public void AddToScore(int value)
@@ -50,16 +49,16 @@ public class LevelController : MonoBehaviour {
         UpdateScoreDisplay ();
     }
 
-    public void UpdateScoreDisplay()
-    {
-        scoreText.text = "Score: " + PlayerScore.ToString ();
-    }
-
     protected void CheckNotNegative()
 	{
 		if (PlayerScore < 0)
 		{
 			PlayerScore = 0;
 		}
+	}
+
+	protected void UpdateScoreDisplay()
+	{
+		scoreText.text = "Score: " + PlayerScore.ToString ();
 	}
 }
