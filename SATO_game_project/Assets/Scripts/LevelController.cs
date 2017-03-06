@@ -22,7 +22,7 @@ public class LevelController : MonoBehaviour {
 
     public void IncrementScore()
 	{
-		if (PlayerScore <= int.MaxValue) 
+		if (PlayerScore < int.MaxValue) 
 		{
 			AddToScore (1);
 		}
