@@ -8,13 +8,14 @@ public class PlayerController : MonoBehaviour
     public Boundary PlayerBoundary;
 
     public Rigidbody Player_rb;
-	public GameObject shot;
     public GameObject redShot;
     public GameObject yellowShot;
 	public Transform shotSpawn;
 	public float fireRate;
 
 	protected float _nextFire;
+    protected GameObject shot;
+
 
     void Start()
     {
