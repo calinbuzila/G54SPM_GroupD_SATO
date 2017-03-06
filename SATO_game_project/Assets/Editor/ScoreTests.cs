@@ -10,7 +10,7 @@ public class ScoreTests {
 	[Test]
 	public void ScoreInitialisesToZero() 
 	{
-		LevelController levelController = new LevelController();
+        LevelController levelController = GameObject.FindObjectOfType<LevelController>();
 		levelController.Initialise ();
 		Assert.AreEqual(0, levelController.GetScore());
 	}
@@ -26,7 +26,7 @@ public class ScoreTests {
 	[TestCase('B')]
 	public void ScoreNeverGoesNegativeThroughSetScore(int setToValue)
 	{
-		LevelController levelController = new LevelController ();
+        LevelController levelController = GameObject.FindObjectOfType<LevelController>();
 		levelController.SetScore (setToValue);
 		Assert.IsTrue (levelController.GetScore () >= 0);
 	}
@@ -41,7 +41,7 @@ public class ScoreTests {
 	[TestCase(5, -90)]
 	public void ScoreNeverGoesNegativeThroughAddToScore(int initialValue, int addedValue)
 	{
-		LevelController levelController = new LevelController ();
+        LevelController levelController = GameObject.FindObjectOfType<LevelController>();
 
 		levelController.SetScore (initialValue);
 		levelController.AddToScore (addedValue);
@@ -59,7 +59,7 @@ public class ScoreTests {
 	[TestCase(50513)]
 	public void ScoreDoesNotExceedLimitThroughIncrementation(int initialValue)
 	{
-		LevelController levelController = new LevelController ();
+        LevelController levelController = GameObject.FindObjectOfType<LevelController>();
 
 		levelController.SetScore (initialValue);
 		levelController.IncrementScore ();
