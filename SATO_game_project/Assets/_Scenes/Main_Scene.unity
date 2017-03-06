@@ -809,7 +809,9 @@ MonoBehaviour:
     zMin: -9
     zMax: 9
   Player_rb: {fileID: 1421631777}
-  shot: {fileID: 1731738886382010, guid: 56d04533da86d41209a07ebb2d9881df, type: 2}
+  shot: {fileID: 0}
+  redShot: {fileID: 1731738886382010, guid: 56d04533da86d41209a07ebb2d9881df, type: 2}
+  yellowShot: {fileID: 1731738886382010, guid: 5da19b4cf41c8ce469585d5d13457f97, type: 2}
   shotSpawn: {fileID: 931335137}
   fireRate: 0.25
 --- !u!54 &1421631777

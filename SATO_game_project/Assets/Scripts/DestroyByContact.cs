@@ -11,11 +11,21 @@ public class DestroyByContact : MonoBehaviour
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.GetComponent<Collider>().name == "Enemy") {
-			Destroy (other.gameObject);
-			Destroy (gameObject);
 
-			levelController = GameObject.FindObjectOfType (typeof(LevelController)) as LevelController;
-			levelController.IncrementScore();
+            Destroy(gameObject);
+
+            levelController = GameObject.FindObjectOfType(typeof(LevelController)) as LevelController;
+
+            if (gameObject.CompareTag("RedBullet"))
+            {
+                levelController.IncrementScore();
+                Destroy(other.gameObject);
+            }
+            else if (gameObject.CompareTag("YellowBullet"))
+            {
+                levelController.DecrementScore();
+            } 
+			
 
             Enemy enemyModel = new Enemy();
             enemyModel.decreaseEnemies();

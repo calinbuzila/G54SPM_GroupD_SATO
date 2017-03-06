@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody Player_rb;
 	public GameObject shot;
+    public GameObject redShot;
+    public GameObject yellowShot;
 	public Transform shotSpawn;
 	public float fireRate;
 
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Player_rb = GetComponent<Rigidbody>();
+        shot = redShot;
     }
 
     void Update()
@@ -26,6 +29,17 @@ public class PlayerController : MonoBehaviour
 			_nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
+        if (Input.GetKeyDown (KeyCode.E))
+        {
+            if (shot == redShot)
+            {
+                shot = yellowShot;
+            }
+            else if (shot == yellowShot)
+            {
+                shot = redShot;
+            }
+        }
     }
 
     void FixedUpdate()
