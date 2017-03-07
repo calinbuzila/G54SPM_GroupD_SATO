@@ -10,6 +10,9 @@ public class MainController : MonoBehaviour
     protected Enemy enemyModel;
     public GameObject enemyShip;
     public Transform mainBoundary;
+    public GameObject enemySpawner;
+    public static bool EnemyWasPlaced = false;
+    
 
     public int nrOfEnemies;
     public float spawnWait;
@@ -27,6 +30,7 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+        MoveSpawner();
         StartCoroutine(SpawnEnemies());
     }
 
@@ -99,7 +103,17 @@ public class MainController : MonoBehaviour
             {
                 Enemy.positionings.Add(spawnPosition.x, spawnPosition.z);
                 //Debug.Log(Enemy.positionings.Count +"EnemiesCounter");
-                newEnemy = Instantiate(enemyShip, spawnPosition, spawnRotation);
+                if (EnemySpawner.SpawnerInRightPosition)
+                {
+                    newEnemy = Instantiate(enemyShip, EnemySpawner.spawnerPosition, spawnRotation);
+                    EnemyWasPlaced = true;
+                }
+                else
+                {
+                    EnemyWasPlaced = false;
+                    MoveSpawner();
+                }
+                
             }
 
             if (newEnemy != null)
@@ -112,6 +126,7 @@ public class MainController : MonoBehaviour
                 newEnemy.name = enemyModel.Name;
                 Enemy.PositionScaleX = spawnPosition.x;
                 Enemy.PositionScaleZ = spawnPosition.z;
+               
             }
         }
     }
@@ -142,4 +157,22 @@ public class MainController : MonoBehaviour
         StartCoroutine(SpawnEnemies());
     }
 
+    public Vector3 MoveSpawner()
+    {
+        float xAxis;
+        float yAxis;
+        float zAxis;
+        xAxis = yAxis = zAxis = 0.0f;
+
+        // get the boundaries for the Main Boundary game object
+        if (mainBoundary != null)
+        {
+            xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
+            zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
+            //Debug.Log(xAxis/2 + "XAXIS");
+        }
+
+        Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
+        return spawnPosition;
+    }
 }
