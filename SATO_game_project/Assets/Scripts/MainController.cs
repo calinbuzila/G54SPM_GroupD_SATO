@@ -119,7 +119,7 @@ public class MainController : MonoBehaviour
             if (newEnemy != null)
             {
                 // !!!Run the test after running the scene, the increased number still persists
-                enemyModel.increaseEnemies();
+				Enemy.NrOfEnemies += 1;
                 enemyModel.Name = "Enemy";
                 Enemy.BoundaryX = mainBoundary.localScale.x;
                 Enemy.BoundaryZ = mainBoundary.localScale.z;

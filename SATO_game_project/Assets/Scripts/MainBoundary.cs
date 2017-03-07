@@ -15,6 +15,7 @@ public class MainBoundary : MonoBehaviour {
         if (other.GetComponent<Collider>().name == "Enemy")
         {
             Enemy enemyModel = new Enemy();
+			//Enemy.NrOfEnemies -= 1;
 
         }
     }

@@ -12,8 +12,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
-        MoveSpawnPoint();
-        StartCoroutine(MoveSpawner());
+		SpawnPointRoutine();
     }
 
     // Update is called once per frame
@@ -48,4 +47,10 @@ public class EnemySpawner : MonoBehaviour
         this.transform.position = mainController.MoveSpawner();
         spawnerPosition = this.transform.position;
     }
+
+	public void SpawnPointRoutine()
+	{
+		MoveSpawnPoint();
+		StartCoroutine(MoveSpawner());
+	}
 }

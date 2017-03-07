@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public bool isMoving;
     public float kamikazeSpeed;
     private int kamikazeRandomNumber;
+	EnemySpawner enemySpawner;
 
     // Use this for initialization
     void Start()
@@ -60,4 +61,19 @@ public class EnemyController : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
     }
+
+	void OnDestroy() 
+	{
+		
+		Enemy.NrOfEnemies -= 1;
+		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
+		if (Enemy.NrOfEnemies == 0)
+		{
+			mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
+			enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
+			enemySpawner.SpawnPointRoutine();
+			mainController.StartFromExternalSourceCouroutine();
+
+		}
+	}
 }
