@@ -27,24 +27,24 @@ public class EnemyController : MonoBehaviour
     /// <param name="col"></param>
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.name == "Enemy")
-        {
-            // if the colliding object is an enemy and if the enemy is not moving => the first spawn of another enemy object
-            // then the colliding enemy object will be destroyed and recreated and put into the scene on another position by calling the SpawnEnemy method from MainController
-            if ((col.gameObject.transform.position.z > this.transform.position.z) || (col.gameObject.transform.position.x > this.transform.position.x))
-            {
-                var enemyState = col.gameObject.GetComponent<EnemyController>().isMoving;
-                if (!enemyState)
-                {
-                    Debug.Log("Colliding enemy");
-                    Enemy enemyModel = new Enemy();
-                    Destroy(col.gameObject);
-                    enemyModel.decreaseEnemies();
-                    mainController.SpawnEnemy();
-                }
+        //if (col.gameObject.name == "Enemy")
+        //{
+        //    // if the colliding object is an enemy and if the enemy is not moving => the first spawn of another enemy object
+        //    // then the colliding enemy object will be destroyed and recreated and put into the scene on another position by calling the SpawnEnemy method from MainController
+        //    if ((col.gameObject.transform.position.z > this.transform.position.z) || (col.gameObject.transform.position.x > this.transform.position.x))
+        //    {
+        //        var enemyState = col.gameObject.GetComponent<EnemyController>().isMoving;
+        //        if (!enemyState)
+        //        {
+        //            Debug.Log("Colliding enemy");
+        //            Enemy enemyModel = new Enemy();
+        //            enemyModel.decreaseEnemies();
+        //            Destroy(col.gameObject);
+        //            mainController.SpawnEnemy();
+        //        }
 
-            }
+        //    }
 
-        }
+        //}
     }
 }
