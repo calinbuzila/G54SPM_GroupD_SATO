@@ -7,18 +7,26 @@ public class EnemyController : MonoBehaviour
 {
     MainController mainController;
     public bool isMoving;
+    public float kamikazeSpeed;
+    private int kamikazeRandomNumber;
+
     // Use this for initialization
     void Start()
     {
         // get the main controller object
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
         isMoving = false;
+        kamikazeRandomNumber = Random.Range(0, 3);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (kamikazeRandomNumber == 2)
+        {
+            KamikazeAttack();
+        }
     }
 
     /// <summary>
@@ -46,5 +54,10 @@ public class EnemyController : MonoBehaviour
             }
 
         }
+    }
+
+    void KamikazeAttack()
+    {
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
     }
 }
