@@ -38,8 +38,8 @@ public class EnemyController : MonoBehaviour
                 {
                     Debug.Log("Colliding enemy");
                     Enemy enemyModel = new Enemy();
-                    enemyModel.increaseEnemies();
                     Destroy(col.gameObject);
+                    enemyModel.decreaseEnemies();
                     mainController.SpawnEnemy();
                 }
 
