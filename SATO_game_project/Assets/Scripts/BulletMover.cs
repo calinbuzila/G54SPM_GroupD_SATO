@@ -5,11 +5,11 @@ using UnityEngine;
 public class BulletMover : MonoBehaviour
 {
 	public float speed;
-	protected Rigidbody _bulletRB;
+	protected Rigidbody bulletRigidBody;
 
 	void Start ()
 	{
-		_bulletRB = GetComponent<Rigidbody> ();
-		_bulletRB.velocity = transform.right * speed;
+		bulletRigidBody = GetComponent<Rigidbody> ();
+		bulletRigidBody.velocity = transform.right * speed;
 	}
 }

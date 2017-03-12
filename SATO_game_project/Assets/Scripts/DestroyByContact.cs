@@ -5,18 +5,14 @@ using UnityEngine;
 
 public class DestroyByContact : MonoBehaviour 
 {
-    MainController mainController;
-	LevelController levelController;
+	protected LevelController levelController;
 
 	void OnTriggerEnter(Collider other)
 	{
 		if (other.GetComponent<Collider>().name == "Enemy") 
 		{
-
             Destroy(gameObject);
-
             levelController = GameObject.FindObjectOfType(typeof(LevelController)) as LevelController;
-
             if (gameObject.CompareTag("RedBullet"))
             {
                 levelController.IncrementScore();
@@ -26,7 +22,6 @@ public class DestroyByContact : MonoBehaviour
             {
                 levelController.DecrementScore();
             } 
-
 		}
 	}
 }
