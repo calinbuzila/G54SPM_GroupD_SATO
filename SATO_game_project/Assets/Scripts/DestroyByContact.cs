@@ -16,11 +16,13 @@ public class DestroyByContact : MonoBehaviour
             if (gameObject.CompareTag("RedBullet"))
             {
                 levelController.IncrementScore();
+                levelController.AddToHealth(-10);
                 Destroy(other.gameObject);
             }
             else if (gameObject.CompareTag("YellowBullet"))
             {
                 levelController.DecrementScore();
+                levelController.AddToHealth(-15);
             } 
 		}
 	}

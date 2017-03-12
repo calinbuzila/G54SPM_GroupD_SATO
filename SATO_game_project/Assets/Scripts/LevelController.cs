@@ -15,8 +15,10 @@ public class LevelController : MonoBehaviour {
 	protected static int PlayerScore;
 	protected static int PlayerHealth;
 	protected static int PlayerLives;
-	//TODO Add healthText and livesText displays.
-	public Text scoreText;
+
+    public Text scoreText;
+    public Text healthText;
+    public Text lifeText;
 
 	void Start()
 	{
@@ -68,8 +70,9 @@ public class LevelController : MonoBehaviour {
 	{
 		PlayerHealth += value;
 		CheckNotNegative (ref PlayerHealth);
-		CheckHealthNotExceeding ();
-		//TODO UpdateHealthDisplay ();
+        ResetHealthIfZero(ref PlayerHealth);
+        CheckHealthNotExceeding();
+        UpdateHealthDisplay ();
 	}
 
 	public void AddToLives(int value)
@@ -77,8 +80,8 @@ public class LevelController : MonoBehaviour {
 		PlayerLives += value;
 		CheckNotNegative (ref PlayerLives);
 		CheckLivesNotExceeding ();
-		//TODO UpdateLivesDisplay ();
-	}
+        UpdateLifeDisplay ();
+    }
 
 	public int GetHealth()
 	{
@@ -89,8 +92,9 @@ public class LevelController : MonoBehaviour {
 	{
 		PlayerHealth = value;
 		CheckNotNegative (ref PlayerHealth);
-		CheckHealthNotExceeding ();
-		//TODO UpdateHealthDisplay ();
+        ResetHealthIfZero(ref PlayerHealth);
+        CheckHealthNotExceeding();
+        UpdateHealthDisplay ();
 	}
 
 	public int GetLives()
@@ -103,8 +107,8 @@ public class LevelController : MonoBehaviour {
 		PlayerLives = value;
 		CheckNotNegative (ref PlayerLives);
 		CheckLivesNotExceeding ();
-		// TODO UpdateLivesDisplay ();
-	}
+        UpdateLifeDisplay ();
+    }
 
     public int GetScore()
 	{
@@ -123,9 +127,18 @@ public class LevelController : MonoBehaviour {
 	{
 		if (value < 0)
 		{
-			value = 0;
-		}
+            value = 0;
+        }
 	}
+
+    protected void ResetHealthIfZero(ref int value)
+    {
+        if (value == 0)
+        {
+            value = DefaultHealth;
+            DecrementLives ();
+        }
+    }
 
 	protected void CheckHealthNotExceeding()
 	{
@@ -151,8 +164,40 @@ public class LevelController : MonoBehaviour {
 		}
 	}
 
+    protected void UpdateHealthTextColour()
+    {
+        if (PlayerHealth > 75)
+        {
+            healthText.color = Color.green;
+        }
+        else if (PlayerHealth <= 75 && PlayerHealth > 50)
+        {
+            healthText.color = Color.yellow;
+        }
+        else if (PlayerHealth <= 50 && PlayerHealth > 25)
+        {
+            // orange
+            healthText.color = new Color(1.0f, 0.5f, 0.0f, 1.0f);
+        }
+        else if (PlayerHealth <= 25)
+        {
+            healthText.color = Color.red;
+        }
+    }
+
 	protected void UpdateScoreDisplay()
 	{
 		scoreText.text = "Score: " + PlayerScore.ToString ();
 	}
+
+    protected void UpdateHealthDisplay()
+    {
+        healthText.text = "Health: " + PlayerHealth.ToString();
+        UpdateHealthTextColour ();
+    }
+
+    protected void UpdateLifeDisplay()
+    {
+        lifeText.text = "Lives: " + PlayerLives.ToString();
+    }
 }
