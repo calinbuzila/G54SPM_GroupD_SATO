@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
-		SpawnPointRoutine();
+        SpawnPointCouroutine();
     }
 
     // Update is called once per frame
@@ -20,6 +21,7 @@ public class EnemySpawner : MonoBehaviour
     {
 
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Collider>().name == "Enemy")
@@ -28,9 +30,10 @@ public class EnemySpawner : MonoBehaviour
             MoveSpawnPoint();
         }
     }
+
     public IEnumerator MoveSpawner()
     {
-        while (true)
+        while (Enemy.NrOfEnemies > 0)
         {
             yield return new WaitUntil(() => MainController.EnemyWasPlaced);
             SpawnerInRightPosition = true;
@@ -48,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
         spawnerPosition = this.transform.position;
     }
 
-	public void SpawnPointRoutine()
+    public void SpawnPointCouroutine()
 	{
 		MoveSpawnPoint();
 		StartCoroutine(MoveSpawner());

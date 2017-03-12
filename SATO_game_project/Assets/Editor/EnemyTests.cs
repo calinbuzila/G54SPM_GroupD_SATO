@@ -103,7 +103,7 @@ public class EnemyTests
             {
                 xAxis = Random.Range(expectedX / 2, expectedX - 7);
                 zAxis = Random.Range(0, expectedZ / 2);
-                Vector3 spawnOtherEnemy = new Vector3(xAxis, yAxis, zAxis);
+
             }
             else
             {

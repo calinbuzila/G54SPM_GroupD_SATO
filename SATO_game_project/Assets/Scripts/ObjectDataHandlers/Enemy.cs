@@ -46,12 +46,12 @@ namespace Assets.Scripts
         /// <summary>
         /// increment the number of enemies, the static field is holding the number of enemies that were spawned
         /// </summary>
-        public void increaseEnemies()
+        public void IncreaseEnemies()
         {
             NrOfEnemies += 1;
         }
 
-        public void decreaseEnemies()
+        public void DecreaseEnemies()
         {
             NrOfEnemies -= 1;
         }
