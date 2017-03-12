@@ -8,8 +8,11 @@ public class LivesTests {
 	/// Checks that the player's lives initialise to the default amount.
 	/// </summary>
 	[Test]
-	public void LivesInitialiseToDefault() {
-		
+	public void LivesInitialiseToDefault()
+	{
+		LevelController levelController = GameObject.FindObjectOfType<LevelController> ();
+		levelController.Initialise ();
+		Assert.AreEqual (levelController.GetLives (), LevelController.DefaultLives);
 	}
 
 	/// <summary>
@@ -22,7 +25,10 @@ public class LivesTests {
 	[TestCase(20)]
 	public void LivesDecrementCorrectly(int initialValue)
 	{
-
+		LevelController levelController = GameObject.FindObjectOfType<LevelController> ();
+		levelController.SetLives (initialValue);
+		levelController.DecrementLives ();
+		Assert.AreEqual (levelController.GetLives (), initialValue - 1);
 	}
 
 	/// <summary>
@@ -31,7 +37,10 @@ public class LivesTests {
 	[Test]
 	public void LivesNeverGoNegativeThroughDecrementation()
 	{
-
+		LevelController levelController = GameObject.FindObjectOfType<LevelController> ();
+		levelController.SetLives (0);
+		levelController.DecrementLives ();
+		Assert.IsTrue (levelController.GetLives () >= 0);
 	}
 
 	/// <summary>
@@ -42,7 +51,10 @@ public class LivesTests {
 	[TestCase(20)]
 	public void LivesIncrementCorrectly(int initialValue)
 	{
-
+		LevelController levelController = GameObject.FindObjectOfType<LevelController> ();
+		levelController.SetLives (initialValue);
+		levelController.IncrementLives ();
+		Assert.AreEqual (levelController.GetLives (), initialValue + 1);
 	}
 
 	/// <summary>
@@ -51,6 +63,9 @@ public class LivesTests {
 	[Test]
 	public void LivesNeverExceedLimitThroughIncrementation()
 	{
-
+		LevelController levelController = GameObject.FindObjectOfType<LevelController> ();
+		levelController.SetLives (LevelController.LivesLimit);
+		levelController.IncrementLives ();
+		Assert.IsTrue(levelController.GetLives() == LevelController.LivesLimit);
 	}
 }
