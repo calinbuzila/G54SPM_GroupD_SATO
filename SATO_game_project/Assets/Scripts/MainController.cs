@@ -66,7 +66,7 @@ public class MainController : MonoBehaviour
         {
             xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
             zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
-            //Debug.Log(xAxis/2 + "XAXIS");
+           
         }
 
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
@@ -102,12 +102,13 @@ public class MainController : MonoBehaviour
             else
             {
                 Enemy.positionings.Add(spawnPosition.x, spawnPosition.z);
-                //Debug.Log(Enemy.positionings.Count +"EnemiesCounter");
+              
                 if (EnemySpawner.SpawnerInRightPosition)
                 {
                     newEnemy = Instantiate(enemyShip, EnemySpawner.spawnerPosition, spawnRotation);
                     EnemyWasPlaced = true;
                 }
+
                 else
                 {
                     EnemyWasPlaced = false;
@@ -169,10 +170,11 @@ public class MainController : MonoBehaviour
         {
             xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
             zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
-            //Debug.Log(xAxis/2 + "XAXIS");
+            
         }
 
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
         return spawnPosition;
+
     }
 }
