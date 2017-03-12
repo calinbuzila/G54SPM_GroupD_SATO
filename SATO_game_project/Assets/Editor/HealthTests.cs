@@ -5,10 +5,10 @@ using NUnit.Framework;
 public class HealthTests {
 
 	/// <summary>
-	/// Checks that the player's health initialises to 100.
+	/// Checks that the player's health initialises to the default.
 	/// </summary>
 	[Test]
-	public void HealthInitialisesToOneHundred() {
+	public void HealthInitialisesToDefault() {
 		
 	}
 
@@ -34,21 +34,21 @@ public class HealthTests {
 	}
 
 	/// <summary>
-	/// Checks that the player's health may not go above 100 through SetHealth.
+	/// Checks that the player's health may not go above the limit through SetHealth.
 	/// </summary>
 	/// <param name="setToValue"></param>
-	[TestCase(110)]
+	[TestCase(LevelController.HealthLimit + 10)]
 	public void HealthNeverExceedsLimitThroughSetHealth(int setToValue)
 	{
 
 	}
 
 	/// <summary>
-	/// Checks that the player's health may not go above 100 through AddToHealth. 
+	/// Checks that the player's health may not go above the limit through AddToHealth. 
 	/// </summary>
 	/// <param name="startingHealth"></param>
 	/// <param name="affectingValue"></param>
-	[TestCase(90, 20)]
+	[TestCase(LevelController.HealthLimit - 10, 20)]
 	public void HealthNeverExceedsLimitThroughAddToHealth(int startingHealth, int affectingValue)
 	{
 		

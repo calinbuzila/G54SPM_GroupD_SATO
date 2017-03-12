@@ -5,10 +5,10 @@ using NUnit.Framework;
 public class LivesTests {
 
 	/// <summary>
-	/// Checks that the player's lives initialise to three.
+	/// Checks that the player's lives initialise to the default amount.
 	/// </summary>
 	[Test]
-	public void LivesInitialiseToThree() {
+	public void LivesInitialiseToDefault() {
 		
 	}
 
@@ -46,10 +46,10 @@ public class LivesTests {
 	}
 
 	/// <summary>
-	/// Lives may not increment above int.MaxValue
+	/// Lives may not increment above the set limit.
 	/// </summary>
 	[Test]
-	public void LivesNeverExceedIntMaxValueThroughIncrementation()
+	public void LivesNeverExceedLimitThroughIncrementation()
 	{
 
 	}
