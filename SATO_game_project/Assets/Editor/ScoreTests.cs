@@ -65,6 +65,6 @@ public class ScoreTests {
 		levelController.IncrementScore ();
 		int newValue = levelController.GetScore ();
 
-		Assert.IsTrue (newValue == initialValue + 1 || newValue == int.MaxValue);
+		Assert.IsTrue (newValue == initialValue + 1 || newValue == LevelController.ScoreLimit);
 	}
 }
