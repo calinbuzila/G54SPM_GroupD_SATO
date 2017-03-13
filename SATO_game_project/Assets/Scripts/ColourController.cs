@@ -8,7 +8,7 @@ public class ColourController : MonoBehaviour {
     public Material yellowMaterial;
     public Material greenMaterial;
 
-	protected int const numMaterials = 3;
+	protected const int numMaterials = 3;
 	
     public void AssignColour(Renderer rend, Material colourMaterial)
     {
