@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
     /// <param name="other">The collider of the other object that the object this script is attached to just hit</param>
     void OnTriggerEnter(Collider other)
     {
-		if (other.GetComponent<Collider>().name == "Player")
+		if (other.GetComponent<Collider> ().name.Contains ("Player"))
 		{
 			levelController.AddToHealth (-20);
 			Destroy (gameObject);
