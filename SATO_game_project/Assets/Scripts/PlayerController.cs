@@ -30,16 +30,10 @@ public class PlayerController : MonoBehaviour
 			_nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
+		//TODO Migrate to a colour handling method once more colours are implemented.
         if (Input.GetKeyDown (KeyCode.E))
         {
-            if (shot == redShot)
-            {
-                shot = yellowShot;
-            }
-            else if (shot == yellowShot)
-            {
-                shot = redShot;
-            }
+			shot = (shot == redShot) ? yellowShot : redShot;
         }
     }
 
@@ -47,18 +41,14 @@ public class PlayerController : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-
         Vector3 movementVector = new Vector3(moveHorizontal, 0.0f, moveVertical);
         Player_rb.velocity = movementVector * PlayerSpeed;
-
         Player_rb.position = new Vector3
         (
             Mathf.Clamp(Player_rb.position.x, PlayerBoundary.xMin, PlayerBoundary.xMax),
             0.0f,
             Mathf.Clamp(Player_rb.position.z, PlayerBoundary.zMin, PlayerBoundary.zMax)
         );
-
-
         Player_rb.freezeRotation = true;
     }
 }
