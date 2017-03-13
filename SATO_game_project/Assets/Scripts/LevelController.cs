@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelController : MonoBehaviour {
 
@@ -56,6 +57,7 @@ public class LevelController : MonoBehaviour {
 	public void DecrementLives()
 	{
 		AddToLives (-1);
+		CheckLivesRemain ();
 	}
 
     public void AddToScore(int value)
@@ -70,7 +72,7 @@ public class LevelController : MonoBehaviour {
 	{
 		PlayerHealth += value;
 		CheckNotNegative (ref PlayerHealth);
-        ResetHealthIfZero(ref PlayerHealth);
+        ResetHealthIfZero();
         CheckHealthNotExceeding();
         UpdateHealthDisplay ();
 	}
@@ -92,7 +94,7 @@ public class LevelController : MonoBehaviour {
 	{
 		PlayerHealth = value;
 		CheckNotNegative (ref PlayerHealth);
-        ResetHealthIfZero(ref PlayerHealth);
+        ResetHealthIfZero();
         CheckHealthNotExceeding();
         UpdateHealthDisplay ();
 	}
@@ -131,14 +133,23 @@ public class LevelController : MonoBehaviour {
         }
 	}
 
-    protected void ResetHealthIfZero(ref int value)
+    protected void ResetHealthIfZero()
     {
-        if (value == 0)
+		if (PlayerHealth == 0)
         {
-            value = DefaultHealth;
+            PlayerHealth = DefaultHealth;
             DecrementLives ();
         }
     }
+
+	protected void CheckLivesRemain()
+	{
+		if (PlayerLives == 0)
+		{
+			// Restarts the scene if the player runs out of lives.
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
+		}
+	}
 
 	protected void CheckHealthNotExceeding()
 	{
@@ -176,7 +187,7 @@ public class LevelController : MonoBehaviour {
         }
         else if (PlayerHealth <= 50 && PlayerHealth > 25)
         {
-            // orange
+            // Orange.
             healthText.color = new Color(1.0f, 0.5f, 0.0f, 1.0f);
         }
         else if (PlayerHealth <= 25)
