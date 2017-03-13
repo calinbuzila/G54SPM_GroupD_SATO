@@ -25,10 +25,10 @@ GameObject:
   - component: {fileID: 54019186377473458}
   - component: {fileID: 114947088760066512}
   - component: {fileID: 114427607250455174}
-  - component: {fileID: 114753608349584466}
+  - component: {fileID: 114479450971829784}
   m_Layer: 0
-  m_Name: Bullet_yellow
-  m_TagString: YellowBullet
+  m_Name: Bullet
+  m_TagString: RedBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 81fea36d6705b5d43b8d9d42f8ad4ef5, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68fbb265fa6e4edebd209a6de68bc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114753608349584466
+--- !u!114 &114479450971829784
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

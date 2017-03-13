@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    protected ColourController colourController;
 	protected LevelController levelController;
     MainController mainController;
     public bool isMoving;
@@ -14,8 +15,11 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        colourController = GameObject.FindObjectOfType<ColourController>();
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
 		levelController = GameObject.FindObjectOfType<LevelController> ();
+
+        colourController.AssignColour(gameObject.GetComponent<Renderer>()  ,colourController.redMaterial);
         isMoving = false;
         kamikazeRandomNumber = Random.Range(0, 3);
     }

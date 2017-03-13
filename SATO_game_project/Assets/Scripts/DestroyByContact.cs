@@ -13,17 +13,10 @@ public class DestroyByContact : MonoBehaviour
 		{
             Destroy(gameObject);
             levelController = GameObject.FindObjectOfType(typeof(LevelController)) as LevelController;
-            if (gameObject.CompareTag("RedBullet"))
-            {
-                levelController.IncrementScore();
-                levelController.AddToHealth(-10);
-                Destroy(other.gameObject);
-            }
-            else if (gameObject.CompareTag("YellowBullet"))
-            {
-                levelController.DecrementScore();
-                levelController.AddToHealth(-15);
-            } 
+
+            levelController.IncrementScore();
+            levelController.AddToHealth(-10);
+            Destroy(other.gameObject);
 		}
 	}
 }

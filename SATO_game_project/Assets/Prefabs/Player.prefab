@@ -140,13 +140,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerSpeed: 8
   PlayerBoundary:
-    xMin: -2
-    xMax: 6
-    zMin: -9
-    zMax: 9
-  Player_rb: {fileID: 54681095760696822}
-  redShot: {fileID: 1731738886382010, guid: 56d04533da86d41209a07ebb2d9881df, type: 2}
-  yellowShot: {fileID: 1731738886382010, guid: 5da19b4cf41c8ce469585d5d13457f97, type: 2}
+    xMin: 0
+    xMax: 0
+    zMin: 0
+    zMax: 0
+  Player_rb: {fileID: 0}
+  shot: {fileID: 1731738886382010, guid: 56d04533da86d41209a07ebb2d9881df, type: 2}
   shotSpawn: {fileID: 4727945465964114}
   fireRate: 0.25
 --- !u!114 &114547210108973092

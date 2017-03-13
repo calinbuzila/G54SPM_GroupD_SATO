@@ -8,18 +8,15 @@ public class PlayerController : MonoBehaviour
     public Boundary PlayerBoundary;
 
     public Rigidbody Player_rb;
-    public GameObject redShot;
-    public GameObject yellowShot;
-	public Transform shotSpawn;
+    public GameObject shot;
+    public Transform shotSpawn;
 	public float fireRate;
 
 	protected float _nextFire;
-    protected GameObject shot;
 
     void Start()
     {
         Player_rb = GetComponent<Rigidbody>();
-        shot = redShot;
     }
 
     void Update()
@@ -29,11 +26,6 @@ public class PlayerController : MonoBehaviour
 			_nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
-		//TODO Migrate to a colour handling method once more colours are implemented.
-        if (Input.GetKeyDown (KeyCode.E))
-        {
-			shot = (shot == redShot) ? yellowShot : redShot;
-        }
     }
 
     void FixedUpdate()
