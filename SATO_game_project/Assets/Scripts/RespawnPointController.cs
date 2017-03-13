@@ -15,6 +15,7 @@ public class RespawnPointController : MonoBehaviour {
 
 	public void Respawn()
 	{
+		playerObject.GetComponent<PlayerController> ().enabled = true;
 		Instantiate (playerObject, spawnPointTransform.position, spawnPointTransform.rotation);
 	}
 }

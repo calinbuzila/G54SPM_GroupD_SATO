@@ -19,6 +19,8 @@ public class MainController : MonoBehaviour
     public float spawnStartWait;
     public float spawnWaveWait;
 
+	protected RespawnPointController respawnPointController;
+
 
     /// <summary>
     /// Called before Start, use usually for initialisations of model objects
@@ -32,6 +34,8 @@ public class MainController : MonoBehaviour
     {
         MoveSpawner();
         StartCoroutine(SpawnEnemies());
+		respawnPointController = GameObject.FindObjectOfType<RespawnPointController> ();
+		respawnPointController.Respawn ();
     }
 
     // Update is called once per frame
