@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54019186377473458}
   - component: {fileID: 114947088760066512}
   - component: {fileID: 114427607250455174}
+  - component: {fileID: 114753608349584466}
   m_Layer: 0
   m_Name: Bullet_yellow
   m_TagString: YellowBullet
@@ -119,6 +120,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d68fbb265fa6e4edebd209a6de68bc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114753608349584466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731738886382010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cfeeb617c6e5430489f86adad59e366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114947088760066512
