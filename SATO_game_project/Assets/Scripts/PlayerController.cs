@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
 
 	protected float _nextFire;
     protected GameObject shot;
+	protected LevelController levelController;
 
 
     void Start()
     {
+		levelController = GameObject.FindObjectOfType<LevelController> ();
         Player_rb = GetComponent<Rigidbody>();
         shot = redShot;
     }
@@ -35,6 +37,10 @@ public class PlayerController : MonoBehaviour
         {
 			shot = (shot == redShot) ? yellowShot : redShot;
         }
+		if (levelController.GetHealth () == 0)
+		{
+			Destroy (gameObject);
+		}
     }
 
     void FixedUpdate()

@@ -5,23 +5,21 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+	protected LevelController levelController;
     MainController mainController;
     public bool isMoving;
     public float kamikazeSpeed;
     private int kamikazeRandomNumber;
 	EnemySpawner enemySpawner;
 
-    // Use this for initialization
     void Start()
     {
-        // get the main controller object
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
+		levelController = GameObject.FindObjectOfType<LevelController> ();
         isMoving = false;
         kamikazeRandomNumber = Random.Range(0, 3);
-
     }
-
-    // Update is called once per frame
+		
     void Update()
     {
         if (kamikazeRandomNumber == 2)
@@ -31,12 +29,16 @@ public class EnemyController : MonoBehaviour
     }
 
     /// <summary>
-    /// Method called when an objects rigidbody collides with other rigidbodies of other game objects
+    /// Method called when an objects collision mesh collides with the meshes of other game objects.
     /// </summary>
-    /// <param name="col"></param>
-    void OnCollisionEnter(Collision col)
+    /// <param name="other">The collider of the other object that the object this script is attached to just hit</param>
+    void OnTriggerEnter(Collider other)
     {
-       
+		if (other.GetComponent<Collider>().name == "Player")
+		{
+			levelController.AddToHealth (-20);
+			Destroy (gameObject);
+		}
     }
 
     void KamikazeAttack()
