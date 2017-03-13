@@ -5,7 +5,7 @@ using UnityEngine;
 public class RespawnPointController : MonoBehaviour {
 
 	protected LevelController levelController;
-	public GameObject player;
+	public GameObject playerObject;
 	public Transform spawnPointTransform;
 
 	void Start ()
@@ -13,11 +13,8 @@ public class RespawnPointController : MonoBehaviour {
 		levelController = GameObject.FindObjectOfType<LevelController> ();
 	}
 
-	void Update () 
+	public void Respawn()
 	{
-		if (levelController.GetHealth () == 0)
-		{
-			Instantiate (player, spawnPointTransform.position, spawnPointTransform.rotation);
-		}
+		Instantiate (playerObject, spawnPointTransform.position, spawnPointTransform.rotation);
 	}
 }

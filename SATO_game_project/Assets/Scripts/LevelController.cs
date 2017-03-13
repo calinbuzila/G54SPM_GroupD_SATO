@@ -20,6 +20,8 @@ public class LevelController : MonoBehaviour {
     public Text scoreText;
     public Text healthText;
     public Text lifeText;
+	protected RespawnPointController respawnPointController;
+	protected PlayerController playerController;
 
 	void Start()
 	{
@@ -31,6 +33,8 @@ public class LevelController : MonoBehaviour {
 		SetScore (DefaultScore);
 		SetHealth (DefaultHealth);
 		SetLives (DefaultLives);
+		respawnPointController = GameObject.FindObjectOfType<RespawnPointController> ();
+		playerController = GameObject.FindObjectOfType<PlayerController> ();
 	}
 
     public void IncrementScore()
@@ -138,6 +142,12 @@ public class LevelController : MonoBehaviour {
 		if (PlayerHealth == 0)
         {
             PlayerHealth = DefaultHealth;
+			/*
+			playerController.KillPlayer ();
+			respawnPointController.Respawn ();
+			// Grab new PlayerController (not strictly sure this is needed at present).
+			playerController = GameObject.FindObjectOfType<PlayerController> ();
+			*/
             DecrementLives ();
         }
     }
