@@ -33,14 +33,17 @@ public class PlayerController : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown (KeyCode.E)) {
-
-			if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.redMaterial) {
-				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.yellowMaterial);
-
-			} else if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.yellowMaterial) {
-				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.redMaterial);
-
-			}
+			colourController.AssignRandomColour(shot.GetComponent<Renderer> ());
+				
+//			if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.redMaterial) {
+////				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.yellowMaterial);
+//				colourController.AssignRandomColour (shot.GetComponent<Renderer> ());
+//
+//			} else if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.yellowMaterial) {
+////				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.redMaterial);
+//				colourController.AssignRandomColour (shot.GetComponent<Renderer> ());
+//
+//			}
 				
 
 		}
