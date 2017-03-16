@@ -14,9 +14,14 @@ public class PlayerController : MonoBehaviour
 
 	protected float _nextFire;
 
+	public ColourController colourController;
+
     void Start()
     {
         Player_rb = GetComponent<Rigidbody>();
+		colourController = GameObject.FindObjectOfType<ColourController>();
+		colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.redMaterial);
+
     }
 
     void Update()
@@ -26,6 +31,21 @@ public class PlayerController : MonoBehaviour
 			_nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
+
+		if (Input.GetKeyDown (KeyCode.E)) {
+
+			if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.redMaterial) {
+				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.yellowMaterial);
+
+			} else if (shot.GetComponent<Renderer> ().sharedMaterial == colourController.yellowMaterial) {
+				colourController.AssignColour (shot.GetComponent<Renderer> (), colourController.redMaterial);
+
+			}
+				
+
+		}
+
+
     }
 
     void FixedUpdate()

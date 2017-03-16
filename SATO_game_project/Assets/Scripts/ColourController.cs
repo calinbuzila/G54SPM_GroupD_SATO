@@ -13,6 +13,7 @@ public class ColourController : MonoBehaviour {
     public void AssignColour(Renderer rend, Material colourMaterial)
     {
         rend.material = colourMaterial;
+	
     }
 
     public void AssignRandomColour(Renderer rend)
