@@ -4,38 +4,44 @@ using UnityEngine;
 
 public class ColourController : MonoBehaviour {
 
-    public Material redMaterial;
-    public Material yellowMaterial;
-    public Material greenMaterial;
-
 	public Material[] materialsArray = new Material[0];
-	private int randomMaterialSelector;
 
+    protected string[] tagArray;
+    protected Shader unlitShader;
+    protected Shader standardShader;
+
+    private int randomMaterialSelector;
 
 	void Start(){
+        unlitShader = Shader.Find("Unlit/Color");
+        standardShader = Shader.Find("Standard");
+        tagArray = new string[materialsArray.Length];
 
-
+        tagArray[0] = "RedMaterial";
+        tagArray[1] = "YellowMaterial";
+        tagArray[2] = "GreenMaterial";
+        tagArray[3] = "BlueMaterial";
 	}
 
     public void AssignColour(Renderer rend, Material colourMaterial)
     {
         rend.material = colourMaterial;
-	
     }
 
-    public void AssignRandomColour(Renderer rend)
+    public void AssignRandomColour(GameObject myGameObject, bool unlitBullet)
     {
-//		print ("show me the money");
-
+        Renderer rend = myGameObject.GetComponent<Renderer>();
 		randomMaterialSelector = Random.Range(0, materialsArray.Length);
-//		Debug.Log ("random range ", randomMaterialSelector);
-
-
  		rend.material = materialsArray [randomMaterialSelector];
-
-//		rend.material = materialsArray [0];
-
-        //TODO Make the random colour generator
+        if (unlitBullet)
+        {
+            rend.sharedMaterial.shader = unlitShader;
+        }
+        else
+        {
+            rend.material.shader = standardShader;
+        }
+        myGameObject.tag = tagArray[randomMaterialSelector];
     }
 
 }

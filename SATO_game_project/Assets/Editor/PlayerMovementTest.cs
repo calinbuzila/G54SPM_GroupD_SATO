@@ -7,7 +7,7 @@ public class PlayerMovementTest
 	[Test]
 	public void PlayerIsWithinSetBoundary()
     {
-        //playercontroller playercontroller = new playercontroller();
+        Assert.That(3 + 3 == 5);
 
         //assert.that(playercontroller.player_rb.position.x, is.inrange(playercontroller.playerboundary.xmin, playercontroller.playerboundary.xmax));
         //assert.that(playercontroller.player_rb.position.z, is.inrange(playercontroller.playerboundary.zmin, playercontroller.playerboundary.zmax));
@@ -17,6 +17,6 @@ public class PlayerMovementTest
     [Test]
     public void PlayerCannotRotate()
     {
-
+        Assert.That(2 + 2 == 4);
     }
 }

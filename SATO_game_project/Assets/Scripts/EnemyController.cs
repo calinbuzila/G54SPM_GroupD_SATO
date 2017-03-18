@@ -19,8 +19,8 @@ public class EnemyController : MonoBehaviour
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
 		levelController = GameObject.FindObjectOfType<LevelController> ();
 
-        colourController.AssignColour(gameObject.GetComponent<Renderer>()  ,colourController.redMaterial);
         isMoving = false;
+        colourController.AssignRandomColour(gameObject, false);
         kamikazeRandomNumber = Random.Range(0, 3);
     }
 		
@@ -57,7 +57,6 @@ public class EnemyController : MonoBehaviour
 		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
 		if (Enemy.NrOfEnemies == 0)
 		{
-			mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
 			enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
             Enemy.NrOfEnemies = 0;
             enemySpawner.SpawnPointCouroutine();

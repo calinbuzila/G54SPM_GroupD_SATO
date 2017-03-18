@@ -7,16 +7,26 @@ public class DestroyByContact : MonoBehaviour
 {
 	protected LevelController levelController;
 
-	void OnTriggerEnter(Collider other)
+    void Start()
+    {
+        levelController = GameObject.FindObjectOfType(typeof(LevelController)) as LevelController;
+    }
+
+    void OnTriggerEnter(Collider other)
 	{
 		if (other.GetComponent<Collider>().name == "Enemy") 
 		{
-            Destroy(gameObject);
-            levelController = GameObject.FindObjectOfType(typeof(LevelController)) as LevelController;
-
-            levelController.IncrementScore();
-            levelController.AddToHealth(-10);
-            Destroy(other.gameObject);
+            if(other.CompareTag(gameObject.tag))
+            {
+                levelController.IncrementScore();
+                Destroy(gameObject);
+                Destroy(other.gameObject);
+            }
+            else
+            {
+                levelController.AddToHealth(-10);
+                Destroy(gameObject);
+            }
 		}
 	}
 }

@@ -61,7 +61,7 @@ public class EnemyTests
     [TestCase(25.0f, 13.0f, 33.0f, 18.0f)]
     public void SpawnInDesignatedArea(float scaleX, float scaleZ, float expectedX, float expectedZ)
     {
-        Enemy enemy = new Enemy();
+        //Enemy enemy = new Enemy();
         Enemy.PositionScaleX = scaleX;
         Enemy.PositionScaleZ = scaleZ;
         Debug.Log(Enemy.PositionScaleX + "/" + expectedX);
