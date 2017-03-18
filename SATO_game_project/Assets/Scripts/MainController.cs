@@ -12,6 +12,7 @@ public class MainController : MonoBehaviour
     public Transform mainBoundary;
     public GameObject enemySpawner;
     public static bool EnemyWasPlaced = false;
+    public static bool CouroutineIsRunning = false;
     
 
     public int nrOfEnemies;
@@ -142,14 +143,14 @@ public class MainController : MonoBehaviour
         //{
         // first enemy will appear after set timer returns a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
-
+        CouroutineIsRunning = true;
         for (int i = 0; i < nrOfEnemies; i++)
         {
             SpawnEnemy();
             //after spawning first it returns a delay into the caller method: start coroutine
             yield return new WaitForSeconds(spawnWait);
         }
-
+        CouroutineIsRunning = false;
         //}
     }
 
