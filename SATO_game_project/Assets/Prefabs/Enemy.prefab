@@ -53,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1415535985720066}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.11687778, y: -5.5378284, z: -2.4466333}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4696130479944770}
@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1074306284668590}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: -1.4, z: 0}
+  m_LocalPosition: {x: -0, y: 1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4469859273735082}
@@ -140,10 +140,11 @@ MonoBehaviour:
   mainController: {fileID: 0}
   isMoving: 0
   kamikazeSpeed: 20
-  fireRate: 5
+  fireRate: 2
   enemyBullet: {fileID: 1731738886382010, guid: 7d1f2d524a6524be589489018ac02b97,
     type: 2}
   enemySpawner: {fileID: 0}
+  enemyShotSpawn: {fileID: 4696130479944770}
 --- !u!136 &136363835310918568
 CapsuleCollider:
   m_ObjectHideFlags: 1

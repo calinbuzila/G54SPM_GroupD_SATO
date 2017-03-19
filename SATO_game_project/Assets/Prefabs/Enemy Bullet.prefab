@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 65883409753256716}
   - component: {fileID: 23945249634584172}
   - component: {fileID: 54019186377473458}
+  - component: {fileID: 114328390409658646}
   - component: {fileID: 114479450971829784}
   m_Layer: 0
   m_Name: Enemy Bullet
@@ -57,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 60c7e776bf885594987d1c735d12d753, type: 2}
+  - {fileID: 2100000, guid: be6dc157b625147a68f5d1e20c9b4ea2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,6 +110,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114328390409658646
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1731738886382010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6222e204602d48c6ae94f8d534dbf09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
 --- !u!114 &114479450971829784
 MonoBehaviour:
   m_ObjectHideFlags: 1
