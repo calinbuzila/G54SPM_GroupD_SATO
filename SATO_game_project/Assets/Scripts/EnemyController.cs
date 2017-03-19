@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour
 	public EnemySpawner enemySpawner;
 	public Transform enemyShotSpawn;
 
-	protected int nextFire;
+	protected float nextFire;
 	protected ColourController colourController;
 	protected LevelController levelController;
 	protected enum Behaviours {IdleTarget, Shooter, Kamikaze};
