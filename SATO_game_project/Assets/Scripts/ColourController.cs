@@ -5,14 +5,17 @@ using UnityEngine;
 public class ColourController : MonoBehaviour {
 
 	public Material[] materialsArray = new Material[0];
-
+    // Default index is 0 for red.
+    public const int DefaultBulletColourIndex = 0;
     protected string[] tagArray;
     protected Shader unlitShader;
     protected Shader standardShader;
+    protected int BulletColourIndex;
 
     private int randomMaterialSelector;
 
 	void Start(){
+        BulletColourIndex = DefaultBulletColourIndex;
         unlitShader = Shader.Find("Unlit/Color");
         standardShader = Shader.Find("Standard");
         tagArray = new string[materialsArray.Length];
@@ -23,9 +26,12 @@ public class ColourController : MonoBehaviour {
         tagArray[3] = "BlueMaterial";
 	}
 
-    public void AssignColour(Renderer rend, Material colourMaterial)
+    public void AssignColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
     {
-        rend.material = colourMaterial;
+        Renderer rend = myGameObject.GetComponent<Renderer>();
+        CheckArrayIndexNotInvalid(ref ColourArrayIndex);
+        rend.material = materialsArray[ColourArrayIndex];
+        myGameObject.tag = tagArray[ColourArrayIndex];
     }
 
     public void AssignRandomColour(GameObject myGameObject, bool unlitBullet)
@@ -42,6 +48,36 @@ public class ColourController : MonoBehaviour {
             rend.material.shader = standardShader;
         }
         myGameObject.tag = tagArray[randomMaterialSelector];
+    }
+
+    public void CycleToNextColour(GameObject myGameObject)
+    {
+        Renderer rend = myGameObject.GetComponent<Renderer>();
+        BulletColourIndex++;
+        CheckArrayIndexNotInvalid(ref BulletColourIndex);
+        rend.material = materialsArray[BulletColourIndex];
+        myGameObject.tag = tagArray[BulletColourIndex];
+    }
+
+    public void CycleToPreviousColour(GameObject myGameObject)
+    {
+        Renderer rend = myGameObject.GetComponent<Renderer>();
+        BulletColourIndex--;
+        CheckArrayIndexNotInvalid(ref BulletColourIndex);
+        rend.material = materialsArray[BulletColourIndex];
+        myGameObject.tag = tagArray[BulletColourIndex];
+    }
+
+    protected void CheckArrayIndexNotInvalid(ref int value)
+    {
+        if (value < 0)
+        {
+            value = materialsArray.Length-1;
+        }
+        if (value > materialsArray.Length-1)
+        {
+            value = 0;
+        }
     }
 
 }

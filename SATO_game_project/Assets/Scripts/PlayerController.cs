@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
         Player_rb = GetComponent<Rigidbody>();
 		colourController = GameObject.FindObjectOfType<ColourController>();
 
-        colourController.AssignRandomColour(shot, true);
+        colourController.AssignColour(shot);
     }
 
     void Update()
@@ -32,24 +32,13 @@ public class PlayerController : MonoBehaviour
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
 
-		//TODO Change to colour cycle for player (random is an anti-pattern).
-		if (Input.GetKeyDown (KeyCode.E))
+        if (Input.GetKeyDown (KeyCode.E))
         {
-			colourController.AssignRandomColour(shot, true);
-
-            //if (shot.GetComponent<Renderer>().sharedMaterial == colourController.redMaterial)
-            //{
-            //    colourController.AssignColour(shot.GetComponent<Renderer>(), colourController.yellowMaterial);
-            //    colourController.AssignRandomColour(shot.GetComponent<Renderer>(), true);
-
-            //}
-            //else if (shot.GetComponent<Renderer>().sharedMaterial == colourController.yellowMaterial)
-            //{
-            //    colourController.AssignColour(shot.GetComponent<Renderer>(), colourController.redMaterial);
-            //    colourController.AssignRandomColour(shot.GetComponent<Renderer>(), true);
-
-            //}
-
+            colourController.CycleToNextColour(shot);
+        }
+        if (Input.GetKeyDown (KeyCode.Q))
+        {
+            colourController.CycleToPreviousColour(shot);
         }
 
 
