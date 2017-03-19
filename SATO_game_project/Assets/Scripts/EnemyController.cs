@@ -11,7 +11,9 @@ public class EnemyController : MonoBehaviour
 	public float fireRate;
 	public GameObject enemyBullet;
 	public EnemySpawner enemySpawner;
+	public Transform enemyShotSpawn;
 
+	protected int nextFire;
 	protected ColourController colourController;
 	protected LevelController levelController;
 	protected enum Behaviours {IdleTarget, Shooter, Kamikaze};
@@ -65,7 +67,11 @@ public class EnemyController : MonoBehaviour
 
 	protected void ShootAttack()
 	{
-
+		if (Time.time > nextFire)
+		{
+			nextFire = Time.time + fireRate;
+			Instantiate (enemyBullet, enemyShotSpawn.position, enemyShotSpawn.rotation);
+		}
 	}
 
 	void OnDestroy() 

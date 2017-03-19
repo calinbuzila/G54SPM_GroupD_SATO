@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30461016b0b9e3428f65b7f068ef66e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyShip: {fileID: 1523728918804418, guid: c76291bb7059d72498f759360d308de5, type: 2}
+  enemyShip: {fileID: 1415535985720066, guid: b24e012f67abc4e3ab37267aab94b1c3, type: 2}
   mainBoundary: {fileID: 703663683}
   enemySpawner: {fileID: 537573078}
   nrOfEnemies: 7
