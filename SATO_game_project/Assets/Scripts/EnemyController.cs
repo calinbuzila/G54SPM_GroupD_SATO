@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    protected ColourController colourController;
-	protected LevelController levelController;
-    MainController mainController;
+    public MainController mainController;
     public bool isMoving;
     public float kamikazeSpeed;
-    private int kamikazeRandomNumber;
-	EnemySpawner enemySpawner;
+	public float fireRate;
+	public GameObject enemyBullet;
+	public EnemySpawner enemySpawner;
+
+	protected ColourController colourController;
+	protected LevelController levelController;
+	protected enum Behaviours {IdleTarget, Shooter, Kamikaze};
+	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
+	protected int randomBehaviourNumber;
 
     void Start()
     {
@@ -21,15 +26,23 @@ public class EnemyController : MonoBehaviour
 
         isMoving = false;
         colourController.AssignRandomColour(gameObject, false);
-        kamikazeRandomNumber = Random.Range(0, 3);
+		randomBehaviourNumber = Random.Range(0, NumBehaviours);
     }
 		
     void Update()
     {
-        if (kamikazeRandomNumber == 2)
-        {
-            KamikazeAttack();
-        }
+		//TODO 	Switch to subclass creation, constantly updating on
+		//		a switch might get expensive later.
+		//TODO 	Look into a more elegant solution than casting every case.
+		switch (randomBehaviourNumber) 
+		{
+		case (int)Behaviours.Shooter:
+			ShootAttack ();
+			break;
+		case (int)Behaviours.Kamikaze:
+			KamikazeAttack ();
+			break;
+		}
     }
 
     /// <summary>
@@ -45,10 +58,15 @@ public class EnemyController : MonoBehaviour
 		}
     }
 
-    void KamikazeAttack()
+    protected void KamikazeAttack()
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
     }
+
+	protected void ShootAttack()
+	{
+
+	}
 
 	void OnDestroy() 
 	{

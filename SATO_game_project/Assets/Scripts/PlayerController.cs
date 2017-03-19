@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
 		}
 
+		//TODO Change to colour cycle for player (random is an anti-pattern).
 		if (Input.GetKeyDown (KeyCode.E))
         {
 			colourController.AssignRandomColour(shot, true);
