@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColourController : MonoBehaviour {
 
 	public Material[] materialsArray = new Material[0];
     // Default index is 0 for red.
     public const int DefaultBulletColourIndex = 0;
+    public Text colourText;
+
     protected string[] tagArray;
     protected Shader unlitShader;
     protected Shader standardShader;
@@ -20,10 +23,10 @@ public class ColourController : MonoBehaviour {
         standardShader = Shader.Find("Standard");
         tagArray = new string[materialsArray.Length];
 
-        tagArray[0] = "RedMaterial";
-        tagArray[1] = "YellowMaterial";
-        tagArray[2] = "GreenMaterial";
-        tagArray[3] = "BlueMaterial";
+        tagArray[0] = "Red";
+        tagArray[1] = "Yellow";
+        tagArray[2] = "Green";
+        tagArray[3] = "Blue";
 	}
 
     public void AssignColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
@@ -31,6 +34,7 @@ public class ColourController : MonoBehaviour {
         Renderer rend = myGameObject.GetComponent<Renderer>();
         CheckArrayIndexNotInvalid(ref ColourArrayIndex);
         rend.material = materialsArray[ColourArrayIndex];
+        UpdateColourDisplay();
         myGameObject.tag = tagArray[ColourArrayIndex];
     }
 
@@ -56,6 +60,7 @@ public class ColourController : MonoBehaviour {
         BulletColourIndex++;
         CheckArrayIndexNotInvalid(ref BulletColourIndex);
         rend.material = materialsArray[BulletColourIndex];
+        UpdateColourDisplay();
         myGameObject.tag = tagArray[BulletColourIndex];
     }
 
@@ -65,7 +70,19 @@ public class ColourController : MonoBehaviour {
         BulletColourIndex--;
         CheckArrayIndexNotInvalid(ref BulletColourIndex);
         rend.material = materialsArray[BulletColourIndex];
+        UpdateColourDisplay();
         myGameObject.tag = tagArray[BulletColourIndex];
+    }
+
+    protected void UpdateColourDisplay()
+    {
+        colourText.text = "<color=white>Colour:</color> " + tagArray[BulletColourIndex];
+        colourText.color = GetBulletColour();
+    }
+
+    public Color GetBulletColour()
+    {
+        return materialsArray[BulletColourIndex].color;
     }
 
     protected void CheckArrayIndexNotInvalid(ref int value)
