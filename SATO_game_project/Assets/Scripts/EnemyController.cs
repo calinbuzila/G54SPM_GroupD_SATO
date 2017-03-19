@@ -76,7 +76,6 @@ public class EnemyController : MonoBehaviour
 
 	void OnDestroy() 
 	{
-		
 		Enemy.NrOfEnemies -= 1;
 		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
         if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
@@ -85,7 +84,6 @@ public class EnemyController : MonoBehaviour
             Enemy.NrOfEnemies = 0;
             enemySpawner.SpawnPointCoroutine();
 			mainController.StartFromExternalSourceCouroutine();
-
 		}
 	}
 }

@@ -5,23 +5,19 @@ using UnityEngine;
 
 public class MainController : MonoBehaviour
 {
+	public static bool EnemyWasPlaced = false;
+	public static bool CouroutineIsRunning = false;
 
-    // Use this for initialization
     protected Enemy enemyModel;
     public GameObject enemyShip;
     public Transform mainBoundary;
     public GameObject enemySpawner;
-    public static bool EnemyWasPlaced = false;
-    public static bool CouroutineIsRunning = false;
-    
-
     public int nrOfEnemies;
     public float spawnWait;
     public float spawnStartWait;
     public float spawnWaveWait;
 
 	protected RespawnPointController respawnPointController;
-
 
     /// <summary>
     /// Called before Start, use usually for initialisations of model objects
@@ -39,12 +35,6 @@ public class MainController : MonoBehaviour
 		respawnPointController.Respawn ();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //for key press C it spawns an enemy
     void FixedUpdate()
     {
@@ -54,8 +44,7 @@ public class MainController : MonoBehaviour
         //    StartCoroutine(SpawnEnemies());
         //}
     }
-
-
+		
     /// <summary>
     /// Spawn single enemy on scene
     /// </summary>
@@ -107,21 +96,17 @@ public class MainController : MonoBehaviour
             else
             {
                 Enemy.positionings.Add(spawnPosition.x, spawnPosition.z);
-              
                 if (EnemySpawner.SpawnerInRightPosition)
                 {
                     newEnemy = Instantiate(enemyShip, EnemySpawner.spawnerPosition, spawnRotation);
                     EnemyWasPlaced = true;
                 }
-
                 else
                 {
                     EnemyWasPlaced = false;
                     MoveSpawner();
                 }
-                
-            }
-
+			}
             if (newEnemy != null)
             {
                 // !!!Run the test after running the scene, the increased number still persists
@@ -132,7 +117,6 @@ public class MainController : MonoBehaviour
                 newEnemy.name = enemyModel.Name;
                 Enemy.PositionScaleX = spawnPosition.x;
                 Enemy.PositionScaleZ = spawnPosition.z;
-               
             }
         }
     }
@@ -154,7 +138,6 @@ public class MainController : MonoBehaviour
         //}
     }
 
-
     /// <summary>
     /// Method used for calling routine from outside the MainController game object
     /// </summary>
@@ -169,7 +152,6 @@ public class MainController : MonoBehaviour
         float yAxis;
         float zAxis;
         xAxis = yAxis = zAxis = 0.0f;
-
         // get the boundaries for the Main Boundary game object
         if (mainBoundary != null)
         {
@@ -177,9 +159,7 @@ public class MainController : MonoBehaviour
             zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
             
         }
-
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
         return spawnPosition;
-
     }
 }

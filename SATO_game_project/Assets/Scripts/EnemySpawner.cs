@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-
-    // Use this for initialization
     public static bool SpawnerInRightPosition = true;
     public static Vector3 spawnerPosition;
     MainController mainController;
@@ -14,12 +12,6 @@ public class EnemySpawner : MonoBehaviour
     {
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
         SpawnPointCoroutine();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -39,9 +31,7 @@ public class EnemySpawner : MonoBehaviour
             SpawnerInRightPosition = true;
             MoveSpawnPoint();
             yield return new WaitForSeconds(2);
-
         }
-
     }
 
     public void MoveSpawnPoint()
