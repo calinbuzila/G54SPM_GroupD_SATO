@@ -142,8 +142,10 @@ public class LevelController : MonoBehaviour {
 		if (PlayerHealth == 0)
         {
             PlayerHealth = DefaultHealth;
+			UpdateLifeDisplay ();
 			playerController.KillPlayer ();
 			respawnPointController.Respawn ();
+			playerController = GameObject.FindObjectOfType<PlayerController> ();
             DecrementLives ();
         }
     }
