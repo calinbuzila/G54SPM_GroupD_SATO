@@ -27,7 +27,7 @@ public class EnemyController : MonoBehaviour
 		levelController = GameObject.FindObjectOfType<LevelController> ();
 
         isMoving = false;
-        colourController.AssignRandomColour(gameObject, false);
+        colourController.AssignRandomColour(gameObject);
 		randomBehaviourNumber = Random.Range(0, NumBehaviours);
     }
 		

@@ -29,7 +29,7 @@ public class ColourController : MonoBehaviour {
         tagArray[3] = "Blue";
 	}
 
-    public void AssignColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
+    public void AssignBulletColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
     {
         Renderer rend = myGameObject.GetComponent<Renderer>();
         CheckArrayIndexNotInvalid(ref ColourArrayIndex);
@@ -38,14 +38,18 @@ public class ColourController : MonoBehaviour {
         myGameObject.tag = tagArray[ColourArrayIndex];
     }
 
-    public void AssignRandomColour(GameObject myGameObject, bool unlitBullet)
+    //TODO split method for bullet and enemy into two methods.
+    public void AssignRandomColour(GameObject myGameObject, bool isBullet = false)
     {
         Renderer rend = myGameObject.GetComponent<Renderer>();
 		randomMaterialSelector = Random.Range(0, materialsArray.Length);
  		rend.material = materialsArray [randomMaterialSelector];
-        if (unlitBullet)
+        if (isBullet)
         {
-            rend.sharedMaterial.shader = unlitShader;
+            BulletColourIndex = randomMaterialSelector;
+            CheckArrayIndexNotInvalid(ref BulletColourIndex);
+            UpdateColourDisplay();
+            myGameObject.tag = tagArray[BulletColourIndex];
         }
         else
         {
