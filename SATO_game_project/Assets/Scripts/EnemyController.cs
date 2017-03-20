@@ -80,10 +80,7 @@ public class EnemyController : MonoBehaviour
 		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
         if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
 		{
-			enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
-            Enemy.NrOfEnemies = 0;
-            enemySpawner.SpawnPointCoroutine();
-			mainController.StartFromExternalSourceCouroutine();
+			mainController.CheckStatusAndResetWaves ();
 		}
 	}
 }

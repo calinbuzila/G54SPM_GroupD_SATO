@@ -134,7 +134,10 @@ public class MainController : MonoBehaviour
             //after spawning first it returns a delay into the caller method: start coroutine
             yield return new WaitForSeconds(spawnWait);
         }
+		Debug.Log ("ENDED ROUTINE");
         CouroutineIsRunning = false;
+		CheckStatusAndResetWaves ();
+			
         //}
     }
 
@@ -162,4 +165,15 @@ public class MainController : MonoBehaviour
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
         return spawnPosition;
     }
+
+	public void CheckStatusAndResetWaves()
+	{
+		if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
+		{
+			var spawner = enemySpawner.GetComponent<EnemySpawner>() as EnemySpawner;
+			Enemy.NrOfEnemies = 0;
+			spawner.SpawnPointCoroutine();
+			this.StartFromExternalSourceCouroutine ();
+		}
+	}
 }
