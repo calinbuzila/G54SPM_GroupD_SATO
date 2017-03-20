@@ -27,6 +27,7 @@ public class ColourController : MonoBehaviour {
         tagArray[1] = "Yellow";
         tagArray[2] = "Green";
         tagArray[3] = "Blue";
+        tagArray[4] = "Cyan";
 	}
 
     public void AssignBulletColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
@@ -87,6 +88,11 @@ public class ColourController : MonoBehaviour {
     public Color GetBulletColour()
     {
         return materialsArray[BulletColourIndex].color;
+    }
+
+    public Color GetObjectColour(GameObject myGameObject)
+    {
+        return myGameObject.GetComponent<Renderer>().material.color;
     }
 
     protected void CheckArrayIndexNotInvalid(ref int value)

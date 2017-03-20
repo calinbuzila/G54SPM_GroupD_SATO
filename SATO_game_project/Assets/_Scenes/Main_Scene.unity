@@ -250,6 +250,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 81fea36d6705b5d43b8d9d42f8ad4ef5, type: 2}
   - {fileID: 2100000, guid: 60c7e776bf885594987d1c735d12d753, type: 2}
   - {fileID: 2100000, guid: 7016045064d69944ca5ef50f684d25d9, type: 2}
+  - {fileID: 2100000, guid: 975f00408d640bf40b8c163be3bb57c4, type: 2}
   colourText: {fileID: 692658794}
 --- !u!4 &334217921
 Transform:
