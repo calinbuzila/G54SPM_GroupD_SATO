@@ -1,7 +1,7 @@
 # G54SPM_GroupD_SATO
 
 The Project:
-test
+
 [TODO]
 
 Our Trello Board:
