@@ -219,4 +219,9 @@ public class LevelController : MonoBehaviour {
     {
         lifeText.text = "Lives: " + PlayerLives.ToString();
     }
+
+    private IEnumerator WaitTimer(float NumberOfSeconds)
+    {
+        yield return new WaitForSeconds(NumberOfSeconds);
+    }
 }
