@@ -223,7 +223,7 @@ public class LevelController : MonoBehaviour {
         yield return new WaitForSeconds(NumberOfSeconds);
         respawnPointController.Respawn();
         playerController = GameObject.FindObjectOfType<PlayerController>();
-        PlayerHealth = DefaultHealth;
+        SetHealth(DefaultHealth);
         DecrementLives();
         StartCoroutine(InvulnerabilityFlasher());
     }
