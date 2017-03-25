@@ -52,3 +52,7 @@ builds/
 /SATO_game_project/SATO_game_project.csproj
 /SATO_game_project/SATO_game_project.sln
 /SATO_game_project/SATO_game_project.Editor.csproj
+
+*.swp
+*.swo
+*~
