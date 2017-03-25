@@ -76,6 +76,7 @@ public class EnemyController : MonoBehaviour
 
 	protected void RotateToPlayer()
 	{
+		playerTransform = GameObject.Find ("Player(Clone)").GetComponent<Transform> ();
 		enemyTransform.LookAt (playerTransform);
 		enemyTransform.Rotate (Vector3.right, 90);
 	}
