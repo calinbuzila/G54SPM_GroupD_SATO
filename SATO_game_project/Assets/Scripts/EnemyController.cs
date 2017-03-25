@@ -18,7 +18,7 @@ public class EnemyController : MonoBehaviour
 	protected float nextFire;
 	protected ColourController colourController;
 	protected LevelController levelController;
-	protected enum Behaviours {IdleTarget, Shooter, LameRotatedShooter, Kamikaze};
+	protected enum Behaviours {IdleTarget, Shooter, RotatingShooter, Kamikaze};
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
 	protected int randomBehaviourNumber;
 
@@ -45,7 +45,7 @@ public class EnemyController : MonoBehaviour
 		case (int)Behaviours.Shooter:
 			ShootAttack ();
 			break;
-		case (int)Behaviours.LameRotatedShooter:
+		case (int)Behaviours.RotatingShooter:
 			RotateToPlayer ();
 			ShootAttack ();
 			break;
