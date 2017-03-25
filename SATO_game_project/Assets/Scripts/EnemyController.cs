@@ -11,12 +11,14 @@ public class EnemyController : MonoBehaviour
 	public float fireRate;
 	public GameObject enemyBullet;
 	public EnemySpawner enemySpawner;
+	public Transform enemyTransform;
+	public Transform playerTransform;
 	public Transform enemyShotSpawn;
 
 	protected float nextFire;
 	protected ColourController colourController;
 	protected LevelController levelController;
-	protected enum Behaviours {IdleTarget, Shooter, Kamikaze};
+	protected enum Behaviours {IdleTarget, Shooter, LameRotatedShooter, Kamikaze};
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
 	protected int randomBehaviourNumber;
 
@@ -43,6 +45,10 @@ public class EnemyController : MonoBehaviour
 		case (int)Behaviours.Shooter:
 			ShootAttack ();
 			break;
+		case (int)Behaviours.LameRotatedShooter:
+			RotateToPlayer ();
+			ShootAttack ();
+			break;
 		case (int)Behaviours.Kamikaze:
 			KamikazeAttack ();
 			break;
@@ -67,6 +73,12 @@ public class EnemyController : MonoBehaviour
     {
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
     }
+
+	protected void RotateToPlayer()
+	{
+		enemyTransform.LookAt (playerTransform);
+		enemyTransform.Rotate (Vector3.right, 90);
+	}
 
 	protected void ShootAttack()
 	{
