@@ -31,6 +31,11 @@ public class EnemyController : MonoBehaviour
         isMoving = false;
         colourController.AssignRandomColour(gameObject);
 		randomBehaviourNumber = Random.Range(0, NumBehaviours);
+		if (randomBehaviourNumber == (int)Behaviours.LameRotatedShooter ||
+		    randomBehaviourNumber == (int)Behaviours.Kamikaze) 
+		{
+			RotateToPlayer ();
+		}
     }
 	
 	//TODO Remove after subclass system is done
@@ -46,7 +51,6 @@ public class EnemyController : MonoBehaviour
 			ShootAttack ();
 			break;
 		case (int)Behaviours.LameRotatedShooter:
-			RotateToPlayer ();
 			ShootAttack ();
 			break;
 		case (int)Behaviours.Kamikaze:

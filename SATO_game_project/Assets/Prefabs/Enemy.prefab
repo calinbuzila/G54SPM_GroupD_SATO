@@ -144,6 +144,8 @@ MonoBehaviour:
   enemyBullet: {fileID: 1731738886382010, guid: 7d1f2d524a6524be589489018ac02b97,
     type: 2}
   enemySpawner: {fileID: 0}
+  enemyTransform: {fileID: 4469859273735082}
+  player: {fileID: 1338093713979600, guid: 5ab10d1e70f044f18a97eb281279d4e8, type: 2}
   enemyShotSpawn: {fileID: 4696130479944770}
 --- !u!136 &136363835310918568
 CapsuleCollider:
