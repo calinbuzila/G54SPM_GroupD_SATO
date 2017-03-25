@@ -31,11 +31,12 @@ public class ColourController : MonoBehaviour {
 
     public void AssignBulletColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
     {
+        BulletColourIndex = ColourArrayIndex;
         Renderer rend = myGameObject.GetComponent<Renderer>();
-        CheckArrayIndexNotInvalid(ref ColourArrayIndex);
-        rend.material = materialsArray[ColourArrayIndex];
+        CheckArrayIndexNotInvalid(ref BulletColourIndex);
+        rend.material = materialsArray[BulletColourIndex];
         UpdateColourDisplay();
-        myGameObject.tag = tagArray[ColourArrayIndex];
+        myGameObject.tag = tagArray[BulletColourIndex];
     }
 
     //TODO split method for bullet and enemy into two methods.

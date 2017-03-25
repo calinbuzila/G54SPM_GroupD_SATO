@@ -6,8 +6,10 @@ public class PlayerController : MonoBehaviour
 {
     public float PlayerSpeed;
 	public Boundary PlayerBoundary;
-
-	public ColourController colourController;
+    public float RespawnDelay;
+    public int InvulnerabilityFlashAmount;
+    public float InvulnerabilityFlashSpeed;
+    public ColourController colourController;
     public Rigidbody playerRigidBody;
     public GameObject shot;
     public Transform shotSpawn;
