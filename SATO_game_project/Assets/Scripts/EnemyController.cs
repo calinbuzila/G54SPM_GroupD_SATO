@@ -12,8 +12,8 @@ public class EnemyController : MonoBehaviour
 	public GameObject enemyBullet;
 	public EnemySpawner enemySpawner;
 	public Transform enemyTransform;
-	public Transform playerTransform;
 	public Transform enemyShotSpawn;
+	public Transform playerTransform;
 
 	protected float nextFire;
 	protected ColourController colourController;
@@ -31,11 +31,6 @@ public class EnemyController : MonoBehaviour
         isMoving = false;
         colourController.AssignRandomColour(gameObject);
 		randomBehaviourNumber = Random.Range(0, NumBehaviours);
-		if (randomBehaviourNumber == (int)Behaviours.LameRotatedShooter ||
-		    randomBehaviourNumber == (int)Behaviours.Kamikaze) 
-		{
-			RotateToPlayer ();
-		}
     }
 	
 	//TODO Remove after subclass system is done
@@ -51,6 +46,7 @@ public class EnemyController : MonoBehaviour
 			ShootAttack ();
 			break;
 		case (int)Behaviours.LameRotatedShooter:
+			RotateToPlayer ();
 			ShootAttack ();
 			break;
 		case (int)Behaviours.Kamikaze:
