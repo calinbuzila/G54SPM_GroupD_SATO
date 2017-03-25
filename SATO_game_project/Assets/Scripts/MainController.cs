@@ -6,7 +6,7 @@ using UnityEngine;
 public class MainController : MonoBehaviour
 {
 	public static bool EnemyWasPlaced = false;
-	public static bool CouroutineIsRunning = false;
+	public static bool CoroutineIsRunning = false;
 
     protected Enemy enemyModel;
     public GameObject enemyShip;
@@ -35,16 +35,6 @@ public class MainController : MonoBehaviour
 		respawnPointController.Respawn ();
     }
 
-    //for key press C it spawns an enemy
-    void FixedUpdate()
-    {
-        //bool spawnKey = Input.GetKeyDown(KeyCode.C);
-        //if (spawnKey)
-        //{
-        //    StartCoroutine(SpawnEnemies());
-        //}
-    }
-		
     /// <summary>
     /// Spawn single enemy on scene
     /// </summary>
@@ -60,7 +50,6 @@ public class MainController : MonoBehaviour
         {
             xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
             zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
-           
         }
 
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
@@ -127,21 +116,21 @@ public class MainController : MonoBehaviour
         //{
         // first enemy will appear after set timer returns a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
-        CouroutineIsRunning = true;
+        CoroutineIsRunning = true;
         for (int i = 0; i < nrOfEnemies; i++)
         {
             SpawnEnemy();
             //after spawning first it returns a delay into the caller method: start coroutine
             yield return new WaitForSeconds(spawnWait);
         }
-        CouroutineIsRunning = false;
+        CoroutineIsRunning = false;
         //}
     }
 
     /// <summary>
     /// Method used for calling routine from outside the MainController game object
     /// </summary>
-    public void StartFromExternalSourceCouroutine()
+    public void StartFromExternalSourceCoroutine()
     {
         StartCoroutine(SpawnEnemies());
     }

@@ -30,7 +30,9 @@ public class EnemyController : MonoBehaviour
         colourController.AssignRandomColour(gameObject);
 		randomBehaviourNumber = Random.Range(0, NumBehaviours);
     }
-		
+	
+	//TODO Remove after subclass system is done
+	//TODO Move ShootAttack and Kamikaze attack to respective sub classes later
     void Update()
     {
 		//TODO 	Switch to subclass creation, constantly updating on
@@ -51,6 +53,7 @@ public class EnemyController : MonoBehaviour
     /// Method called when an objects collision mesh collides with the meshes of other game objects.
     /// </summary>
     /// <param name="other">The collider of the other object that the object this script is attached to just hit</param>
+	//TODO Move to kamikaze subclass later
     void OnTriggerEnter(Collider other)
     {
 		if (other.GetComponent<Collider> ().name.Contains ("Player"))
@@ -78,12 +81,12 @@ public class EnemyController : MonoBehaviour
 	{
 		Enemy.NrOfEnemies -= 1;
 		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
-        if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
+        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
 		{
 			enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
             Enemy.NrOfEnemies = 0;
             enemySpawner.SpawnPointCoroutine();
-			mainController.StartFromExternalSourceCouroutine();
+			mainController.StartFromExternalSourceCoroutine();
 		}
 	}
 }
