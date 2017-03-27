@@ -58,8 +58,11 @@ public class MainController : MonoBehaviour
         Vector3 eulerAngles = new Vector3(0, 0, 90);
         spawnRotation = Quaternion.Euler(eulerAngles);
         GameObject newEnemy = null;
+        //enemy ship holds the reference for the enemy object/prefab
         if (enemyShip != null)
         {
+            // positionings contains the list with x,z coordinates for each enemy
+            //if the list contains another enemy on x axis then regenerate the x coordinate until it is one different
             if (Enemy.positionings.ContainsKey(spawnPosition.x))
             {
                 while (Enemy.positionings.ContainsKey(spawnPosition.x))
@@ -71,6 +74,7 @@ public class MainController : MonoBehaviour
                     }
                 }
             }
+            //if the list contains another enemy on z axis then regenerate the z coordinate until it is one different
             else if (Enemy.positionings.ContainsValue(spawnPosition.z))
             {
                 while (Enemy.positionings.ContainsKey(spawnPosition.z))
@@ -82,12 +86,15 @@ public class MainController : MonoBehaviour
                     }
                 }
             }
+            //if x and z were set then add the enemy position into the list
             else
             {
                 Enemy.positionings.Add(spawnPosition.x, spawnPosition.z);
+                // checks the spawner object positio if it is ok and now over other enemy, the sync between of the two coroutines are based on the delay set from unity(2seconds)
                 if (EnemySpawner.SpawnerInRightPosition)
                 {
                     newEnemy = Instantiate(enemyShip, EnemySpawner.spawnerPosition, spawnRotation);
+                    //mark that the enemy was placed in the scene so that the spawner continues moving
                     EnemyWasPlaced = true;
                 }
                 else
@@ -96,6 +103,7 @@ public class MainController : MonoBehaviour
                     MoveSpawner();
                 }
 			}
+            // if statement used for getting information for enemy tests
             if (newEnemy != null)
             {
                 // !!!Run the test after running the scene, the increased number still persists
