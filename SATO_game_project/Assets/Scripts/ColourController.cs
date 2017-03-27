@@ -90,6 +90,11 @@ public class ColourController : MonoBehaviour {
         return materialsArray[BulletColourIndex].color;
     }
 
+    public int GetBulletColourIndex()
+    {
+        return BulletColourIndex;
+    }
+
     protected void CheckArrayIndexNotInvalid(ref int value)
     {
         if (value < 0)
