@@ -141,12 +141,10 @@ public class LevelController : MonoBehaviour {
     {
 		if (PlayerHealth == 0)
         {
-            PlayerHealth = DefaultHealth;
+            float RespawnDelay = playerController.RespawnDelay;
 			UpdateLifeDisplay ();
 			playerController.KillPlayer ();
-			respawnPointController.Respawn ();
-			playerController = GameObject.FindObjectOfType<PlayerController> ();
-            DecrementLives ();
+            StartCoroutine(RespawnTimer(RespawnDelay));
         }
     }
 
@@ -218,5 +216,30 @@ public class LevelController : MonoBehaviour {
     protected void UpdateLifeDisplay()
     {
         lifeText.text = "Lives: " + PlayerLives.ToString();
+    }
+
+    IEnumerator RespawnTimer(float NumberOfSeconds)
+    {
+        yield return new WaitForSeconds(NumberOfSeconds);
+        respawnPointController.Respawn();
+        playerController = GameObject.FindObjectOfType<PlayerController>();
+        SetHealth(DefaultHealth);
+        DecrementLives();
+        StartCoroutine(InvulnerabilityFlasher());
+    }
+
+    IEnumerator InvulnerabilityFlasher()
+    {
+        playerController.GetComponent<Collider>().enabled = false;
+
+        for (int i=0; i<playerController.InvulnerabilityFlashAmount; i++)
+        {
+            playerController.GetComponent<Renderer>().enabled = false;
+            yield return new WaitForSeconds(playerController.InvulnerabilityFlashSpeed);
+            playerController.GetComponent<Renderer>().enabled = true;
+            yield return new WaitForSeconds(playerController.InvulnerabilityFlashSpeed);
+        }
+
+        playerController.GetComponent<Collider>().enabled = true;
     }
 }

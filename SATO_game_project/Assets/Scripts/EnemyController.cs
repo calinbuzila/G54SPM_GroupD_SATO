@@ -11,12 +11,14 @@ public class EnemyController : MonoBehaviour
 	public float fireRate;
 	public GameObject enemyBullet;
 	public EnemySpawner enemySpawner;
+	public Transform enemyTransform;
 	public Transform enemyShotSpawn;
+	public Transform playerTransform;
 
 	protected float nextFire;
 	protected ColourController colourController;
 	protected LevelController levelController;
-	protected enum Behaviours {IdleTarget, Shooter, Kamikaze};
+	protected enum Behaviours {IdleTarget, Shooter, RotatingShooter, Kamikaze};
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
 	protected int randomBehaviourNumber;
 
@@ -30,7 +32,9 @@ public class EnemyController : MonoBehaviour
         colourController.AssignRandomColour(gameObject);
 		randomBehaviourNumber = Random.Range(0, NumBehaviours);
     }
-		
+	
+	//TODO Remove after subclass system is done
+	//TODO Move ShootAttack and Kamikaze attack to respective sub classes later
     void Update()
     {
 		//TODO 	Switch to subclass creation, constantly updating on
@@ -39,6 +43,10 @@ public class EnemyController : MonoBehaviour
 		switch (randomBehaviourNumber) 
 		{
 		case (int)Behaviours.Shooter:
+			ShootAttack ();
+			break;
+		case (int)Behaviours.RotatingShooter:
+			RotateToPlayer ();
 			ShootAttack ();
 			break;
 		case (int)Behaviours.Kamikaze:
@@ -51,6 +59,7 @@ public class EnemyController : MonoBehaviour
     /// Method called when an objects collision mesh collides with the meshes of other game objects.
     /// </summary>
     /// <param name="other">The collider of the other object that the object this script is attached to just hit</param>
+	//TODO Move to kamikaze subclass later
     void OnTriggerEnter(Collider other)
     {
 		if (other.GetComponent<Collider> ().name.Contains ("Player"))
@@ -65,6 +74,13 @@ public class EnemyController : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
     }
 
+	protected void RotateToPlayer()
+	{
+		playerTransform = GameObject.Find ("Player(Clone)").GetComponent<Transform> ();
+		enemyTransform.LookAt (playerTransform);
+		enemyTransform.Rotate (Vector3.right, 90);
+	}
+
 	protected void ShootAttack()
 	{
 		if (Time.time > nextFire)
@@ -78,9 +94,12 @@ public class EnemyController : MonoBehaviour
 	{
 		Enemy.NrOfEnemies -= 1;
 		Debug.Log ("nrenemies:" + Enemy.NrOfEnemies);
-        if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
+        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
 		{
-			mainController.CheckStatusAndResetWaves ();
+			enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
+            Enemy.NrOfEnemies = 0;
+            enemySpawner.SpawnPointCoroutine();
+			mainController.StartFromExternalSourceCoroutine();
 		}
 	}
 }
