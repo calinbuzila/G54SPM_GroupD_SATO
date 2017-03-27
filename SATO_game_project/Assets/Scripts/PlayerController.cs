@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidBody = GetComponent<Rigidbody>();
 		colourController = GameObject.FindObjectOfType<ColourController>();
-        colourController.AssignBulletColour(shot);
+        colourController.AssignBulletColour(shot,colourController.GetBulletColourIndex());
     }
 
     void Update()

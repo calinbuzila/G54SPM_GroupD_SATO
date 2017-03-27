@@ -91,9 +91,9 @@ public class ColourController : MonoBehaviour {
         return materialsArray[BulletColourIndex].color;
     }
 
-    public Color GetObjectColour(GameObject myGameObject)
+    public int GetBulletColourIndex()
     {
-        return myGameObject.GetComponent<Renderer>().material.color;
+        return BulletColourIndex;
     }
 
     protected void CheckArrayIndexNotInvalid(ref int value)
