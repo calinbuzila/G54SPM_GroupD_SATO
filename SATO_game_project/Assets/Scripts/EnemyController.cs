@@ -76,9 +76,12 @@ public class EnemyController : MonoBehaviour
 
 	protected void RotateToPlayer()
 	{
-		playerTransform = GameObject.Find ("Player(Clone)").GetComponent<Transform> ();
-		enemyTransform.LookAt (playerTransform);
-		enemyTransform.Rotate (Vector3.right, 90);
+        var isNull = GameObject.Find("Player(Clone)");
+        if (null == isNull) return;
+        playerTransform = isNull.GetComponent<Transform>();
+
+        enemyTransform.LookAt(playerTransform);
+        enemyTransform.Rotate(Vector3.right, 90);
 	}
 
 	protected void ShootAttack()
