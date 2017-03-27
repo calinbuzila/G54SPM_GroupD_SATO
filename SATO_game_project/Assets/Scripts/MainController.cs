@@ -162,12 +162,12 @@ public class MainController : MonoBehaviour
 
 	public void CheckStatusAndResetWaves()
 	{
-		if (Enemy.NrOfEnemies == 0 && !MainController.CouroutineIsRunning)
+		if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
 		{
 			var spawner = enemySpawner.GetComponent<EnemySpawner>() as EnemySpawner;
 			Enemy.NrOfEnemies = 0;
 			spawner.SpawnPointCoroutine();
-			this.StartFromExternalSourceCouroutine ();
+			this.StartFromExternalSourceCoroutine ();
 		}
 	}
 }
