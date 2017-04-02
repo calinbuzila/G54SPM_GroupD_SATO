@@ -46,7 +46,7 @@ public class MainController : MonoBehaviour
 		return waveNumber;
 	}
 
-	protected void IncrementWave()
+	public void IncrementWave()
 	{
 		++waveNumber;
 		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
