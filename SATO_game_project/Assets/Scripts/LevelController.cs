@@ -3,184 +3,196 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using System;
 
-public class LevelController : MonoBehaviour {
+public class LevelController : MonoBehaviour
+{
 
-	public const int DefaultHealth = 100;
-	public const int DefaultLives = 3;
-	public const int DefaultScore = 0;
-	public const int HealthLimit = 100;
-	public const int LivesLimit = int.MaxValue;
-	public const int ScoreLimit = int.MaxValue;
-	//TODO Consider branching score, lives, etc into their own sub-classes.
-	protected static int PlayerScore;
-	protected static int PlayerHealth;
-	protected static int PlayerLives;
+    public const int DefaultHealth = 100;
+    public const int DefaultLives = 3;
+    private string PlayerHighScores = "HighScores";
+    public const int DefaultScore = 0;
+    // control variable used for erasing all the data from the user prefs files.
+    public bool RemoveUserScores;
+    public const int HealthLimit = 100;
+    public const int LivesLimit = int.MaxValue;
+    public const int ScoreLimit = int.MaxValue;
+    //TODO Consider branching score, lives, etc into their own sub-classes.
+    protected static int PlayerScore;
+    protected static int PlayerHealth;
+    protected static int PlayerLives;
     public static bool playerIsRespawning = false;
 
     public Text scoreText;
     public Text healthText;
     public Text lifeText;
-	protected RespawnPointController respawnPointController;
-	protected PlayerController playerController;
+    protected RespawnPointController respawnPointController;
+    protected PlayerController playerController;
 
-	void Start()
-	{
-		Initialise ();
-	}
+    void Start()
+    {
+        // is used for removing user preferences if an error occurs
+        if (RemoveUserScores)
+        {
+            PlayerPrefs.DeleteKey(PlayerHighScores);
+        }
+        Initialise();
+    }
 
-	public void Initialise()
-	{
-		SetScore (DefaultScore);
-		SetHealth (DefaultHealth);
-		SetLives (DefaultLives);
-		respawnPointController = GameObject.FindObjectOfType<RespawnPointController> ();
-		playerController = GameObject.FindObjectOfType<PlayerController> ();
-	}
+    public void Initialise()
+    {
+        SetScore(DefaultScore);
+        SetHealth(DefaultHealth);
+        SetLives(DefaultLives);
+        respawnPointController = GameObject.FindObjectOfType<RespawnPointController>();
+        playerController = GameObject.FindObjectOfType<PlayerController>();
+    }
 
     public void IncrementScore()
-	{
-		if (PlayerScore < int.MaxValue) 
-		{
-			AddToScore (1);
-		}
-	}
+    {
+        if (PlayerScore < int.MaxValue)
+        {
+            AddToScore(1);
+        }
+    }
 
-	public void IncrementLives()
-	{
-		if (PlayerLives < LivesLimit)
-		{
-			AddToLives (1);
-		}
-	}
+    public void IncrementLives()
+    {
+        if (PlayerLives < LivesLimit)
+        {
+            AddToLives(1);
+        }
+    }
 
     public void DecrementScore()
-	{
-		AddToScore (-1);
+    {
+        AddToScore(-1);
     }
 
-	public void DecrementLives()
-	{
-		AddToLives (-1);
-		CheckLivesRemain ();
-	}
+    public void DecrementLives()
+    {
+        AddToLives(-1);
+        CheckLivesRemain();
+    }
 
     public void AddToScore(int value)
-	{
-		PlayerScore += value;
-		CheckNotNegative (ref PlayerScore);
-		CheckScoreNotExceeding ();
-        UpdateScoreDisplay ();
+    {
+        PlayerScore += value;
+        CheckNotNegative(ref PlayerScore);
+        CheckScoreNotExceeding();
+        UpdateScoreDisplay();
     }
 
-	public void AddToHealth(int value)
-	{
-		PlayerHealth += value;
-		CheckNotNegative (ref PlayerHealth);
+    public void AddToHealth(int value)
+    {
+        PlayerHealth += value;
+        CheckNotNegative(ref PlayerHealth);
         ResetHealthIfZero();
         CheckHealthNotExceeding();
-        UpdateHealthDisplay ();
-	}
-
-	public void AddToLives(int value)
-	{
-		PlayerLives += value;
-		CheckNotNegative (ref PlayerLives);
-		CheckLivesNotExceeding ();
-        UpdateLifeDisplay ();
+        UpdateHealthDisplay();
     }
 
-	public int GetHealth()
-	{
-		return PlayerHealth;
-	}
+    public void AddToLives(int value)
+    {
+        PlayerLives += value;
+        CheckNotNegative(ref PlayerLives);
+        CheckLivesNotExceeding();
+        UpdateLifeDisplay();
+    }
 
-	public void SetHealth(int value)
-	{
-		PlayerHealth = value;
-		CheckNotNegative (ref PlayerHealth);
+    public int GetHealth()
+    {
+        return PlayerHealth;
+    }
+
+    public void SetHealth(int value)
+    {
+        PlayerHealth = value;
+        CheckNotNegative(ref PlayerHealth);
         ResetHealthIfZero();
         CheckHealthNotExceeding();
-        UpdateHealthDisplay ();
-	}
+        UpdateHealthDisplay();
+    }
 
-	public int GetLives()
-	{
-		return PlayerLives;
-	}
+    public int GetLives()
+    {
+        return PlayerLives;
+    }
 
-	public void SetLives(int value)
-	{
-		PlayerLives = value;
-		CheckNotNegative (ref PlayerLives);
-		CheckLivesNotExceeding ();
-        UpdateLifeDisplay ();
+    public void SetLives(int value)
+    {
+        PlayerLives = value;
+        CheckNotNegative(ref PlayerLives);
+        CheckLivesNotExceeding();
+        UpdateLifeDisplay();
     }
 
     public int GetScore()
-	{
-		return PlayerScore;
-	}
-
-	public void SetScore(int value)
-	{
-		PlayerScore = value;
-		CheckNotNegative (ref PlayerScore);
-		CheckScoreNotExceeding ();
-        UpdateScoreDisplay ();
+    {
+        return PlayerScore;
     }
 
-	protected void CheckNotNegative(ref int value)
-	{
-		if (value < 0)
-		{
+    public void SetScore(int value)
+    {
+        PlayerScore = value;
+        CheckNotNegative(ref PlayerScore);
+        CheckScoreNotExceeding();
+        UpdateScoreDisplay();
+    }
+
+    protected void CheckNotNegative(ref int value)
+    {
+        if (value < 0)
+        {
             value = 0;
         }
-	}
+    }
 
     protected void ResetHealthIfZero()
     {
-		if (PlayerHealth == 0)
+        if (PlayerHealth == 0)
         {
             float RespawnDelay = playerController.RespawnDelay;
-			UpdateLifeDisplay ();
-			playerController.KillPlayer ();
+            UpdateLifeDisplay();
+            playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
         }
     }
 
-	protected void CheckLivesRemain()
-	{
-		if (PlayerLives == 0)
-		{
-			// Restarts the scene if the player runs out of lives.
-			SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
-		}
-	}
+    protected void CheckLivesRemain()
+    {
+        if (PlayerLives == 0)
+        {
+            // Restarts the scene if the player runs out of lives.
+            SaveScore(PlayerScore);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
 
-	protected void CheckHealthNotExceeding()
-	{
-		if (PlayerHealth > HealthLimit)
-		{
-			PlayerHealth = HealthLimit;
-		}
-	}
+    protected void CheckHealthNotExceeding()
+    {
+        if (PlayerHealth > HealthLimit)
+        {
+            PlayerHealth = HealthLimit;
+        }
+    }
 
-	protected void CheckLivesNotExceeding()
-	{
-		if (PlayerLives > LivesLimit)
-		{
-			PlayerLives = LivesLimit;
-		}
-	}
+    protected void CheckLivesNotExceeding()
+    {
+        if (PlayerLives > LivesLimit)
+        {
+            PlayerLives = LivesLimit;
+        }
+    }
 
-	protected void CheckScoreNotExceeding()
-	{
-		if (PlayerScore > ScoreLimit)
-		{
-			PlayerScore = ScoreLimit;
-		}
-	}
+    protected void CheckScoreNotExceeding()
+    {
+        if (PlayerScore > ScoreLimit)
+        {
+            PlayerScore = ScoreLimit;
+        }
+    }
 
     protected void UpdateHealthTextColour()
     {
@@ -203,15 +215,15 @@ public class LevelController : MonoBehaviour {
         }
     }
 
-	protected void UpdateScoreDisplay()
-	{
-		scoreText.text = "Score: " + PlayerScore.ToString ();
-	}
+    protected void UpdateScoreDisplay()
+    {
+        scoreText.text = "Score: " + PlayerScore.ToString();
+    }
 
     protected void UpdateHealthDisplay()
     {
         healthText.text = "Health: " + PlayerHealth.ToString();
-        UpdateHealthTextColour ();
+        UpdateHealthTextColour();
     }
 
     protected void UpdateLifeDisplay()
@@ -233,7 +245,7 @@ public class LevelController : MonoBehaviour {
     {
         playerController.GetComponent<Collider>().enabled = false;
         playerIsRespawning = true;
-        for (int i=0; i<playerController.InvulnerabilityFlashAmount; i++)
+        for (int i = 0; i < playerController.InvulnerabilityFlashAmount; i++)
         {
             playerController.GetComponent<Renderer>().enabled = false;
             yield return new WaitForSeconds(playerController.InvulnerabilityFlashSpeed);
@@ -243,5 +255,50 @@ public class LevelController : MonoBehaviour {
 
         playerController.GetComponent<Collider>().enabled = true;
         playerIsRespawning = false;
+    }
+
+    protected void SaveScore(int playerScore)
+    {
+        if (PlayerPrefs.HasKey(PlayerHighScores))
+        {
+            var playerScores = PlayerPrefs.GetString(PlayerHighScores).ToString().Split(',');
+            List<int> scores;
+            scores = new List<int>();
+            foreach (var score in playerScores)
+            {
+                int scoreToAdd;
+
+                if (Int32.TryParse(score, out scoreToAdd))
+                {
+                    scores.Add(scoreToAdd);
+                }
+            }
+            scores.Add(PlayerScore);
+            var topFiveScores = scores.OrderByDescending(scoreValue => scoreValue).Take(5);
+            if (topFiveScores.Any())
+            {
+                var newListOfScores = String.Join(",", topFiveScores.Select(scoreValue => scoreValue.ToString()).ToArray());
+                PlayerPrefs.SetString(PlayerHighScores, newListOfScores);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetString(PlayerHighScores, playerScore.ToString());
+            PlayerPrefs.Save();
+        }
+    }
+
+
+    // when getting high scores need to check if it is an empty string: !String.IsNullOrEmpty(value)
+    protected string GetHighScores()
+    {
+        if (PlayerPrefs.HasKey(PlayerHighScores))
+        {
+            var playerScores = PlayerPrefs.GetString(PlayerHighScores).ToString().Split(',');
+            var newListOfScores = String.Join("/n", playerScores.Select(scoreValue => scoreValue.ToString()).ToArray());
+            return newListOfScores;
+        }
+        return "";
     }
 }

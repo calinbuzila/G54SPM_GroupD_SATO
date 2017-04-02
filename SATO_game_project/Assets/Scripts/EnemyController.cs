@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour
 
     protected void HomingKamikaze()
     {
-		var player = GameObject.Find ("Player(Clone)");
+		var player = GameObject.Find("Player(Clone)");
         if (player != null)
         {
             var playerTransform = player.GetComponent<Transform>();
