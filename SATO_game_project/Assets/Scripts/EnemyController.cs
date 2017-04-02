@@ -151,11 +151,9 @@ public class EnemyController : MonoBehaviour
         {
             enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
             Enemy.NrOfEnemies = 0;
-            if (enemySpawner != null && mainController != null)
-            {
-                enemySpawner.SpawnPointCoroutine();
-                mainController.StartFromExternalSourceCoroutine();
-            }
+            enemySpawner.SpawnPointCoroutine();
+            mainController.StartFromExternalSourceCoroutine();
+
         }
     }
 }
