@@ -27,6 +27,7 @@ public class LevelController : MonoBehaviour
     public Text scoreText;
     public Text healthText;
     public Text lifeText;
+    public Text waveText;
     protected RespawnPointController respawnPointController;
     protected PlayerController playerController;
 
@@ -154,7 +155,7 @@ public class LevelController : MonoBehaviour
         if (PlayerHealth == 0)
         {
             float RespawnDelay = playerController.RespawnDelay;
-            UpdateLifeDisplay();
+            //UpdateLifeDisplay();
             if (playerController == null) return;
             playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
@@ -167,7 +168,8 @@ public class LevelController : MonoBehaviour
         {
             // Restarts the scene if the player runs out of lives.
             SaveScore(PlayerScore);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

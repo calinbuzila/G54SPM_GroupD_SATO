@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MainController : MonoBehaviour
     public GameObject enemyShip;
     public Transform mainBoundary;
     public GameObject enemySpawner;
+    public Text waveText;
     public int initialNumberOfEnemies;
     public float spawnWait;
     public float spawnStartWait;
@@ -34,6 +36,7 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+        UpdateWaveDisplay();
 		totalEnemiesInWave = initialNumberOfEnemies;
         MoveSpawner();
         StartCoroutine(SpawnEnemies());
@@ -49,6 +52,7 @@ public class MainController : MonoBehaviour
 	public void IncrementWave()
 	{
 		++waveNumber;
+        UpdateWaveDisplay();
 		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
 	}
 
@@ -188,4 +192,9 @@ public class MainController : MonoBehaviour
 			this.StartFromExternalSourceCoroutine ();
 		}
 	}
+
+    protected void UpdateWaveDisplay()
+    {
+        waveText.text = "Wave: " + waveNumber;
+    }
 }
