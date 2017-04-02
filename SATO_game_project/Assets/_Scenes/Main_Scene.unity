@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9bc57c970ed4d629b1ac2807c31b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RemoveUserScores: 1
   scoreText: {fileID: 1210939706}
   healthText: {fileID: 1706597532}
   lifeText: {fileID: 2082703777}
