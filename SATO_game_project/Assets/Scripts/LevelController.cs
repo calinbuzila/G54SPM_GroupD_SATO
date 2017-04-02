@@ -155,6 +155,7 @@ public class LevelController : MonoBehaviour
         {
             float RespawnDelay = playerController.RespawnDelay;
             UpdateLifeDisplay();
+            if (playerController == null) return;
             playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
         }
