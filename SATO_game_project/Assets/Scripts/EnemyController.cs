@@ -77,8 +77,18 @@ public class EnemyController : MonoBehaviour
     {
         if (other.GetComponent<Collider>().name.Contains("Player"))
         {
-            levelController.AddToHealth(-20);
-            Destroy(gameObject);
+            //var playerIsRespawning = other.GetComponent<Renderer>().enabled;
+            if (!LevelController.playerIsRespawning)
+            {
+                levelController.AddToHealth(-20);
+                Destroy(gameObject);
+            }
+            else
+            {
+                this.isHoming = false;
+                RestoreRotation();
+                KamikazeAttack();
+            }
         }
     }
 
@@ -87,10 +97,14 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(homingTime);
         this.isHoming = false;
         // need to use Euler Angles to set up the rotation of the object
+        RestoreRotation();
+        KamikazeAttack();
+
+    }
+    private void RestoreRotation()
+    {
         Vector3 eulerAngles = new Vector3(0, 0, 90);
         enemyTransform.rotation = Quaternion.Euler(eulerAngles);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
-
     }
 
     protected void KamikazeAttack()

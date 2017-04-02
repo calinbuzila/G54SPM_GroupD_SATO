@@ -16,6 +16,7 @@ public class LevelController : MonoBehaviour {
 	protected static int PlayerScore;
 	protected static int PlayerHealth;
 	protected static int PlayerLives;
+    public static bool playerIsRespawning = false;
 
     public Text scoreText;
     public Text healthText;
@@ -231,7 +232,7 @@ public class LevelController : MonoBehaviour {
     IEnumerator InvulnerabilityFlasher()
     {
         playerController.GetComponent<Collider>().enabled = false;
-
+        playerIsRespawning = true;
         for (int i=0; i<playerController.InvulnerabilityFlashAmount; i++)
         {
             playerController.GetComponent<Renderer>().enabled = false;
@@ -241,5 +242,6 @@ public class LevelController : MonoBehaviour {
         }
 
         playerController.GetComponent<Collider>().enabled = true;
+        playerIsRespawning = false;
     }
 }
