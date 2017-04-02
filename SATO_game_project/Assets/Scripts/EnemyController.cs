@@ -8,17 +8,20 @@ public class EnemyController : MonoBehaviour
     public MainController mainController;
     public bool isMoving;
     public float kamikazeSpeed;
+    public float homingSpeed;
+    public int homingTime;
     public float fireRate;
     public GameObject enemyBullet;
     public EnemySpawner enemySpawner;
     public Transform enemyTransform;
     public Transform enemyShotSpawn;
     public Transform playerTransform;
+    private bool isHoming = true;
 
     protected float nextFire;
     protected ColourController colourController;
     protected LevelController levelController;
-    protected enum Behaviours { IdleTarget, Shooter, RotatingShooter, Kamikaze, HomingKamikaze };
+    protected enum Behaviours { IdleTarget, Shooter, RotatingShooter, Kamikaze, HomingKamikaze, StrongHomingKamikaze };
     static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
     protected int randomBehaviourNumber;
 
@@ -53,7 +56,14 @@ public class EnemyController : MonoBehaviour
                 KamikazeAttack();
                 break;
             case (int)Behaviours.HomingKamikaze:
-                KamikazeTowardsPlayer();
+                if (isHoming)
+                {
+                    HomingKamikaze();
+                    StartCoroutine(ResetHoming());
+                }
+                break;
+            case (int)Behaviours.StrongHomingKamikaze:
+                HomingKamikaze();
                 break;
         }
     }
@@ -70,6 +80,17 @@ public class EnemyController : MonoBehaviour
             levelController.AddToHealth(-20);
             Destroy(gameObject);
         }
+    }
+
+    protected IEnumerator ResetHoming()
+    {
+        yield return new WaitForSeconds(homingTime);
+        this.isHoming = false;
+        // need to use Euler Angles to set up the rotation of the object
+        Vector3 eulerAngles = new Vector3(0, 0, 90);
+        enemyTransform.rotation = Quaternion.Euler(eulerAngles);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(-10.0f, 0.0f, transform.position.z), kamikazeSpeed * Time.deltaTime);
+
     }
 
     protected void KamikazeAttack()
@@ -95,7 +116,8 @@ public class EnemyController : MonoBehaviour
             Instantiate(enemyBullet, enemyShotSpawn.position, enemyShotSpawn.rotation);
         }
     }
-    protected void KamikazeTowardsPlayer()
+
+    protected void HomingKamikaze()
     {
         var player = GameObject.Find("Player(Clone)").GetComponent<Transform>();
         if (player != null)
@@ -103,7 +125,7 @@ public class EnemyController : MonoBehaviour
             var playerTransform = player.GetComponent<Transform>();
             enemyTransform.LookAt(playerTransform);
             enemyTransform.Rotate(Vector3.right, 90);
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z), kamikazeSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z), homingSpeed * Time.deltaTime);
         }
     }
 
@@ -115,8 +137,11 @@ public class EnemyController : MonoBehaviour
         {
             enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
             Enemy.NrOfEnemies = 0;
-            enemySpawner.SpawnPointCoroutine();
-            mainController.StartFromExternalSourceCoroutine();
+            if (enemySpawner != null && mainController != null)
+            {
+                enemySpawner.SpawnPointCoroutine();
+                mainController.StartFromExternalSourceCoroutine();
+            }
         }
     }
 }
