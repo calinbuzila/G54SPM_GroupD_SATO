@@ -27,9 +27,11 @@ public class LevelController : MonoBehaviour
     public Text scoreText;
     public Text healthText;
     public Text lifeText;
-    public Text waveText;
+    public Text highScoreText;
+    public Text resetText;
     protected RespawnPointController respawnPointController;
     protected PlayerController playerController;
+    protected MainController mainController;
 
     void Start()
     {
@@ -48,6 +50,20 @@ public class LevelController : MonoBehaviour
         SetLives(DefaultLives);
         respawnPointController = GameObject.FindObjectOfType<RespawnPointController>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
+        mainController = GameObject.FindObjectOfType<MainController>();
+        highScoreText.text = "";
+        resetText.text = "";
+    }
+
+    void Update()
+    {
+        if (PlayerLives == 0)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
     }
 
     public void IncrementScore()
@@ -155,7 +171,6 @@ public class LevelController : MonoBehaviour
         if (PlayerHealth == 0)
         {
             float RespawnDelay = playerController.RespawnDelay;
-            //UpdateLifeDisplay();
             if (playerController == null) return;
             playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
@@ -168,8 +183,10 @@ public class LevelController : MonoBehaviour
         {
             // Restarts the scene if the player runs out of lives.
             SaveScore(PlayerScore);
-
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            mainController.DestroyAllEnemies();
+            mainController.StopAllCoroutines();
+            UpdateHighScoreDisplay();
+            DisplayResetText();
         }
     }
 
@@ -237,11 +254,14 @@ public class LevelController : MonoBehaviour
     IEnumerator RespawnTimer(float NumberOfSeconds)
     {
         yield return new WaitForSeconds(NumberOfSeconds);
-        respawnPointController.Respawn();
-        playerController = GameObject.FindObjectOfType<PlayerController>();
-        SetHealth(DefaultHealth);
         DecrementLives();
-        StartCoroutine(InvulnerabilityFlasher());
+        if (PlayerLives != 0)
+        {
+            SetHealth(DefaultHealth);
+            respawnPointController.Respawn();
+            playerController = GameObject.FindObjectOfType<PlayerController>();
+            StartCoroutine(InvulnerabilityFlasher());
+        }
     }
 
     IEnumerator InvulnerabilityFlasher()
@@ -303,5 +323,15 @@ public class LevelController : MonoBehaviour
             return newListOfScores;
         }
         return "";
+    }
+
+    protected void UpdateHighScoreDisplay()
+    {
+        highScoreText.text = "Highscore: " + GetHighScores();
+    }
+
+    protected void DisplayResetText()
+    {
+        resetText.text = "Press 'R' to reset!";
     }
 }

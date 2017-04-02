@@ -197,4 +197,16 @@ public class MainController : MonoBehaviour
     {
         waveText.text = "Wave: " + waveNumber;
     }
+
+    public void DestroyAllEnemies()
+    {
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        for (int i = 0; i < allObjects.Length; i++)
+        {
+            if (allObjects[i].name.Contains("Enemy"))
+            {
+                Destroy(allObjects[i]);
+            }
+        }
+    }
 }

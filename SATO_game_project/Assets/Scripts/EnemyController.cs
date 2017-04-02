@@ -147,7 +147,7 @@ public class EnemyController : MonoBehaviour
     {
         Enemy.NrOfEnemies -= 1;
         Debug.Log("nrenemies:" + Enemy.NrOfEnemies);
-        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
+        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning && levelController.GetLives()!=0)
         {
             enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
             Enemy.NrOfEnemies = 0;
