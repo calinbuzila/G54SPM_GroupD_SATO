@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
             case (int)Behaviours.StrongHomingKamikaze:
-                HomingKamikaze();
+                //HomingKamikaze();
                 break;
         }
     }
@@ -133,7 +133,7 @@ public class EnemyController : MonoBehaviour
 
     protected void HomingKamikaze()
     {
-        var player = GameObject.Find("Player(Clone)").GetComponent<Transform>();
+		var player = GameObject.Find ("Player(Clone)");
         if (player != null)
         {
             var playerTransform = player.GetComponent<Transform>();
