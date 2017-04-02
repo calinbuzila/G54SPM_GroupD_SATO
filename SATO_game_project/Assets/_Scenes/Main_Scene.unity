@@ -295,7 +295,7 @@ MonoBehaviour:
   enemyShip: {fileID: 1415535985720066, guid: b24e012f67abc4e3ab37267aab94b1c3, type: 2}
   mainBoundary: {fileID: 703663683}
   enemySpawner: {fileID: 537573078}
-  nrOfEnemies: 7
+  initialNumberOfEnemies: 7
   spawnWait: 2
   spawnStartWait: 4
   spawnWaveWait: 0

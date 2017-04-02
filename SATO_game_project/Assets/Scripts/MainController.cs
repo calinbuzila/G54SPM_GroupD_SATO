@@ -12,10 +12,15 @@ public class MainController : MonoBehaviour
     public GameObject enemyShip;
     public Transform mainBoundary;
     public GameObject enemySpawner;
-    public int nrOfEnemies;
+    public int initialNumberOfEnemies;
     public float spawnWait;
     public float spawnStartWait;
     public float spawnWaveWait;
+
+	protected int totalEnemiesInWave;
+	protected int waveNumber = 1;
+	// Doubles each wave.
+	static protected int WaveEnemyGrowthRate = 2;
 
 	protected RespawnPointController respawnPointController;
 
@@ -29,11 +34,23 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+		totalEnemiesInWave = initialNumberOfEnemies;
         MoveSpawner();
         StartCoroutine(SpawnEnemies());
 		respawnPointController = GameObject.FindObjectOfType<RespawnPointController> ();
 		respawnPointController.Respawn ();
     }
+
+	public int GetWaveNumber()
+	{
+		return waveNumber;
+	}
+
+	protected void IncrementWave()
+	{
+		++waveNumber;
+		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
+	}
 
     /// <summary>
     /// Spawn single enemy on scene
@@ -125,7 +142,7 @@ public class MainController : MonoBehaviour
         // first enemy will appear after set timer returns a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
         CoroutineIsRunning = true;
-        for (int i = 0; i < nrOfEnemies; i++)
+        for (int i = 0; i < totalEnemiesInWave; i++)
         {
             SpawnEnemy();
             //after spawning first it returns a delay into the caller method: start coroutine
@@ -164,6 +181,7 @@ public class MainController : MonoBehaviour
 	{
 		if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
 		{
+			IncrementWave ();
 			var spawner = enemySpawner.GetComponent<EnemySpawner>() as EnemySpawner;
 			Enemy.NrOfEnemies = 0;
 			spawner.SpawnPointCoroutine();
