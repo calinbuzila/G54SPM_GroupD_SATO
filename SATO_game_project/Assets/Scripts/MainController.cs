@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MainController : MonoBehaviour
 {
@@ -200,13 +201,13 @@ public class MainController : MonoBehaviour
 
     public void DestroyAllEnemies()
     {
-        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>().Where(gameObject => gameObject.name.Contains("Enemy")).ToArray();
         for (int i = 0; i < allObjects.Length; i++)
         {
-            if (allObjects[i].name.Contains("Enemy"))
-            {
-                Destroy(allObjects[i]);
-            }
+            //if (allObjects[i].name.Contains("Enemy"))
+            //{
+               Destroy(allObjects[i]);
+            //}
         }
     }
 }
