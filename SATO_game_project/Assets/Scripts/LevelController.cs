@@ -319,7 +319,7 @@ public class LevelController : MonoBehaviour
         if (PlayerPrefs.HasKey(PlayerHighScores))
         {
             var playerScores = PlayerPrefs.GetString(PlayerHighScores).ToString().Split(',');
-            var newListOfScores = String.Join(",", playerScores.Select(scoreValue => scoreValue.ToString()).ToArray());
+            var newListOfScores = String.Join("\n", playerScores.Select(scoreValue => scoreValue.ToString()).ToArray());
             return newListOfScores;
         }
         return "";
@@ -327,7 +327,7 @@ public class LevelController : MonoBehaviour
 
     protected void UpdateHighScoreDisplay()
     {
-        highScoreText.text = "Highscore: " + GetHighScores();
+        highScoreText.text = "Highscores:\n" + GetHighScores();
     }
 
     protected void DisplayResetText()
