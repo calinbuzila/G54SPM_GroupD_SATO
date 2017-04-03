@@ -21,6 +21,11 @@ public class MainController : MonoBehaviour
     public float spawnWaveWait;
 
 	protected int totalEnemiesInWave;
+    public int TotalEnemiesInWave
+    {
+        get { return totalEnemiesInWave; }
+        set { totalEnemiesInWave = value; }
+    }
 	protected int waveNumber = 1;
 	// Doubles each wave.
 	static protected int WaveEnemyGrowthRate = 2;
@@ -55,6 +60,7 @@ public class MainController : MonoBehaviour
 		++waveNumber;
         UpdateWaveDisplay();
 		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
+        Debug.Log("NROFENEMIESPER_WAVE" + totalEnemiesInWave);
 	}
 
     /// <summary>

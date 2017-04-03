@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public int homingTime;
     public float fireRate;
     public GameObject enemyBullet;
+    private static int enemiesDied = 0;
     public EnemySpawner enemySpawner;
     public Transform enemyTransform;
     public Transform enemyShotSpawn;
@@ -43,6 +44,7 @@ public class EnemyController : MonoBehaviour
         //TODO 	Switch to subclass creation, constantly updating on
         //		a switch might get expensive later.
         //TODO 	Look into a more elegant solution than casting every case.
+
         switch (randomBehaviourNumber)
         {
             case (int)Behaviours.Shooter:
@@ -92,6 +94,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    protected IEnumerator SpawnRoutineEndedForCurrentWave()
+    {
+        yield return new WaitForSeconds(1);
+        RestartRoutines();
+
+    }
     protected IEnumerator ResetHoming()
     {
         yield return new WaitForSeconds(homingTime);
@@ -133,7 +141,7 @@ public class EnemyController : MonoBehaviour
 
     protected void HomingKamikaze()
     {
-		var player = GameObject.Find("Player(Clone)");
+        var player = GameObject.Find("Player(Clone)");
         if (player != null)
         {
             var playerTransform = player.GetComponent<Transform>();
@@ -146,15 +154,25 @@ public class EnemyController : MonoBehaviour
     void OnDestroy()
     {
         Enemy.NrOfEnemies -= 1;
-        Debug.Log("nrenemies:" + Enemy.NrOfEnemies);
-        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning && levelController.GetLives()!=0)
-        {
-            enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
-            Enemy.NrOfEnemies = 0;
-            mainController.IncrementWave();
-            enemySpawner.SpawnPointCoroutine();
-            mainController.StartFromExternalSourceCoroutine();
+        ++enemiesDied;
+        RestartRoutines();
 
+    }
+
+    private void RestartRoutines()
+    {
+        if (enemiesDied == mainController.TotalEnemiesInWave)
+        {
+            if (Enemy.NrOfEnemies == 0 && levelController.GetLives() != 0)
+            {
+                enemySpawner = GameObject.FindObjectOfType(typeof(EnemySpawner)) as EnemySpawner;
+                Enemy.NrOfEnemies = 0;
+                mainController.IncrementWave();
+                enemySpawner.SpawnPointCoroutine();
+                mainController.StartFromExternalSourceCoroutine();
+
+            }
+            enemiesDied = 0;
         }
     }
 }
