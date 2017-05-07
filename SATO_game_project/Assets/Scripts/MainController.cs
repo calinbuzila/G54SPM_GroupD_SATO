@@ -21,11 +21,6 @@ public class MainController : MonoBehaviour
     public float spawnWaveWait;
 
 	protected int totalEnemiesInWave;
-    public int TotalEnemiesInWave
-    {
-        get { return totalEnemiesInWave; }
-        set { totalEnemiesInWave = value; }
-    }
 	protected int waveNumber = 1;
 	// Doubles each wave.
 	static protected int WaveEnemyGrowthRate = 2;
@@ -50,6 +45,12 @@ public class MainController : MonoBehaviour
 		respawnPointController.Respawn ();
     }
 
+	public int TotalEnemiesInWave
+	{
+		get { return totalEnemiesInWave; }
+		set { totalEnemiesInWave = value; }
+	}
+
 	public int GetWaveNumber()
 	{
 		return waveNumber;
@@ -58,9 +59,32 @@ public class MainController : MonoBehaviour
 	public void IncrementWave()
 	{
 		++waveNumber;
+		AdjustDifficultyOfEnemies ();
         UpdateWaveDisplay();
 		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
         Debug.Log("NROFENEMIESPER_WAVE" + totalEnemiesInWave);
+	}
+
+	protected void AdjustDifficultyOfEnemies()
+	{
+		switch (waveNumber) 
+		{
+		// Disable idle enemies and enable rotating shooters on wave 2.
+		case 2:
+			EnemyController.SetMinimumEnemyDifficultyOffset (1);
+			EnemyController.SetMaximumEnemyDifficultyOffset (1);
+			break;
+		// Disable straight shooters and enable homing kamikazes on wave 3.
+		case 3:
+			EnemyController.SetMinimumEnemyDifficultyOffset (2);
+			EnemyController.SetMaximumEnemyDifficultyOffset (0);
+			break;
+		// Disable straight flying kamikaze enemies on wave 4.
+		case 4:
+			EnemyController.SetMinimumEnemyDifficultyOffset (3);
+			break;
+		// TODO consider boss spawn on wave 5?
+		}
 	}
 
     /// <summary>

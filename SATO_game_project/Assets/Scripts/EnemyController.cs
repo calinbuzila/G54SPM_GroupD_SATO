@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
+	static protected int MinimumEnemyDifficultyOffset = 0;
+	static protected int MaximumEnemyDifficultyOffset = 2;
 	static public int EnemiesDestroyedByPlayer = 0;
 
 	protected ColourController colourController;
@@ -38,7 +40,7 @@ public class EnemyController : MonoBehaviour
         levelController = GameObject.FindObjectOfType<LevelController>();
 
         colourController.AssignRandomColour(gameObject);
-        randomBehaviourNumber = Random.Range(0, NumBehaviours);
+        randomBehaviourNumber = Random.Range(MinimumEnemyDifficultyOffset, NumBehaviours - MaximumEnemyDifficultyOffset);
     }
 
 	public int getEnemyBehaviourNumber()
@@ -75,6 +77,16 @@ public class EnemyController : MonoBehaviour
 		++EnemiesDestroyedByPlayer;
 	}
 
+	static public void SetMinimumEnemyDifficultyOffset(int offsetValue)
+	{
+		MinimumEnemyDifficultyOffset = offsetValue;
+	}
+
+	static public void SetMaximumEnemyDifficultyOffset(int offsetValue)
+	{
+		MaximumEnemyDifficultyOffset = offsetValue;
+	}
+
     /// <summary>
     /// Method called when an objects collision mesh collides with the meshes of other game objects.
     /// </summary>
@@ -88,6 +100,7 @@ public class EnemyController : MonoBehaviour
             {
                 levelController.AddToHealth(-20);
                 Destroy(gameObject);
+				IncrementPlayerKills();
             }
             else
             {
