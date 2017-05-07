@@ -153,10 +153,10 @@ public class MainController : MonoBehaviour
         // first enemy will appear after set timer returns a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
         CoroutineIsRunning = true;
+		// TODO Change logic to detect player kills and compare against wave amount.
         for (int i = 0; i < totalEnemiesInWave; i++)
         {
             SpawnEnemy();
-            //after spawning first it returns a delay into the caller method: start coroutine
             yield return new WaitForSeconds(spawnWait);
         }
         CoroutineIsRunning = false;
