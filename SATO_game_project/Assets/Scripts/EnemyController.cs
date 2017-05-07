@@ -5,46 +5,48 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+	static protected int enemiesDestroyed = 0;
+	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
+
+	protected ColourController colourController;
+	protected LevelController levelController;
+	protected int randomBehaviourNumber;
+
     public MainController mainController;
-    public bool isMoving;
-    public float kamikazeSpeed;
-    public float homingSpeed;
-    public int homingTime;
-    public float fireRate;
-    public GameObject enemyBullet;
-    private static int enemiesDied = 0;
     public EnemySpawner enemySpawner;
     public Transform enemyTransform;
-    public Transform enemyShotSpawn;
-    public Transform playerTransform;
-    private bool isHoming = true;
+	public Transform playerTransform;
+	public enum Behaviours { IdleTarget, Shooter, RotatingShooter, Kamikaze, HomingKamikaze };
 
-    protected float nextFire;
-    protected ColourController colourController;
-    protected LevelController levelController;
-    protected enum Behaviours { IdleTarget, Shooter, RotatingShooter, Kamikaze, HomingKamikaze, StrongHomingKamikaze };
-    static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
-    protected int randomBehaviourNumber;
+	// Kamikaze related variables.
+	protected bool isHoming = true;
+	public float kamikazeSpeed;
+	public float homingSpeed;
+	public int homingTime;
+
+	// Shooter related variables.
+	protected float nextFire;
+	public Transform enemyShotSpawn;
+	public GameObject enemyBullet;
+	public float fireRate;
 
     void Start()
     {
         colourController = GameObject.FindObjectOfType<ColourController>();
-        mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;
+		mainController = GameObject.FindObjectOfType<MainController>();
         levelController = GameObject.FindObjectOfType<LevelController>();
 
-        isMoving = false;
         colourController.AssignRandomColour(gameObject);
         randomBehaviourNumber = Random.Range(0, NumBehaviours);
     }
 
-    //TODO Remove after subclass system is done
-    //TODO Move ShootAttack and Kamikaze attack to respective sub classes later
+	public int getEnemyBehaviourNumber()
+	{
+		return randomBehaviourNumber;
+	}
+
     void Update()
     {
-        //TODO 	Switch to subclass creation, constantly updating on
-        //		a switch might get expensive later.
-        //TODO 	Look into a more elegant solution than casting every case.
-
         switch (randomBehaviourNumber)
         {
             case (int)Behaviours.Shooter:
@@ -64,9 +66,6 @@ public class EnemyController : MonoBehaviour
                     StartCoroutine(ResetHoming());
                 }
                 break;
-            case (int)Behaviours.StrongHomingKamikaze:
-                //HomingKamikaze();
-                break;
         }
     }
 
@@ -74,7 +73,6 @@ public class EnemyController : MonoBehaviour
     /// Method called when an objects collision mesh collides with the meshes of other game objects.
     /// </summary>
     /// <param name="other">The collider of the other object that the object this script is attached to just hit</param>
-    //TODO Move to kamikaze subclass later
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Collider>().name.Contains("Player"))
@@ -98,8 +96,8 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         RestartRoutines();
-
     }
+
     protected IEnumerator ResetHoming()
     {
         yield return new WaitForSeconds(homingTime);
@@ -107,9 +105,9 @@ public class EnemyController : MonoBehaviour
         // need to use Euler Angles to set up the rotation of the object
         RestoreRotation();
         KamikazeAttack();
-
     }
-    private void RestoreRotation()
+
+    protected void RestoreRotation()
     {
         Vector3 eulerAngles = new Vector3(0, 0, 90);
         enemyTransform.rotation = Quaternion.Euler(eulerAngles);
@@ -123,7 +121,10 @@ public class EnemyController : MonoBehaviour
     protected void RotateToPlayer()
     {
         var player = GameObject.Find("Player(Clone)");
-        if (player == null) return;
+		if (player == null) 
+		{
+			return;
+		}
         playerTransform = player.GetComponent<Transform>();
 
         enemyTransform.LookAt(playerTransform);
@@ -154,14 +155,13 @@ public class EnemyController : MonoBehaviour
     void OnDestroy()
     {
         Enemy.NrOfEnemies -= 1;
-        ++enemiesDied;
+        ++enemiesDestroyed;
         RestartRoutines();
-
     }
 
-    private void RestartRoutines()
+    protected void RestartRoutines()
     {
-        if (enemiesDied == mainController.TotalEnemiesInWave)
+        if (enemiesDestroyed == mainController.TotalEnemiesInWave)
         {
             if (Enemy.NrOfEnemies == 0 && levelController.GetLives() != 0)
             {
@@ -170,9 +170,8 @@ public class EnemyController : MonoBehaviour
                 mainController.IncrementWave();
                 enemySpawner.SpawnPointCoroutine();
                 mainController.StartFromExternalSourceCoroutine();
-
             }
-            enemiesDied = 0;
+            enemiesDestroyed = 0;
         }
     }
 }

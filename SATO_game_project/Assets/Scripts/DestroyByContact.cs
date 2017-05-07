@@ -19,14 +19,9 @@ public class DestroyByContact : MonoBehaviour
             if(other.CompareTag(gameObject.tag))
             {
                 levelController.IncrementScore();
-                Destroy(gameObject);
                 Destroy(other.gameObject);
             }
-            else
-            {
-                levelController.AddToHealth(-10);
-                Destroy(gameObject);
-            }
+			Destroy(gameObject);
 		}
 	}
 }
