@@ -16,7 +16,8 @@ public class EnemyController : MonoBehaviour
     public EnemySpawner enemySpawner;
     public Transform enemyTransform;
 	public Transform playerTransform;
-	public enum Behaviours { IdleTarget, Shooter, RotatingShooter, Kamikaze, HomingKamikaze };
+	// Ordered by difficulty!
+	public enum Behaviours { IdleTarget, Shooter, Kamikaze, RotatingShooter, HomingKamikaze };
 
 	// Kamikaze related variables.
 	protected bool isHoming = true;
@@ -51,13 +52,13 @@ public class EnemyController : MonoBehaviour
         {
             case (int)Behaviours.Shooter:
                 ShootAttack();
-                break;
+			break;
+			case (int)Behaviours.Kamikaze:
+				KamikazeAttack();
+				break;
             case (int)Behaviours.RotatingShooter:
                 RotateToPlayer();
                 ShootAttack();
-                break;
-            case (int)Behaviours.Kamikaze:
-                KamikazeAttack();
                 break;
             case (int)Behaviours.HomingKamikaze:
                 if (isHoming)
