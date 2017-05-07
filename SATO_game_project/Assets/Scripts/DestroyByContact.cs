@@ -19,6 +19,7 @@ public class DestroyByContact : MonoBehaviour
             if(other.CompareTag(gameObject.tag))
             {
                 levelController.IncrementScore();
+				EnemyController.IncrementPlayerKills();
                 Destroy(other.gameObject);
             }
 			Destroy(gameObject);

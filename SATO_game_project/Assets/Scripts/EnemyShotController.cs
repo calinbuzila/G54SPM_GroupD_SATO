@@ -11,14 +11,15 @@ public class EnemyShotController : MonoBehaviour {
 	void Start ()
 	{
 		levelController = GameObject.FindObjectOfType (typeof(LevelController)) as LevelController;
-		bulletRigidBody = GetComponent<Rigidbody> ();	
+		bulletRigidBody = GetComponent<Rigidbody> ();
 		// Note the bullet moves left, thus minus right.
 		bulletRigidBody.velocity = -(transform.right * speed);
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Player")) {
+		if (other.CompareTag("Player"))
+		{
 			Destroy (gameObject);
 			levelController.AddToHealth (-10);
 		}

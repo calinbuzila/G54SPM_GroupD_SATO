@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-	static protected int enemiesDestroyed = 0;
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
+	static public int EnemiesDestroyedByPlayer = 0;
 
 	protected ColourController colourController;
 	protected LevelController levelController;
@@ -69,6 +69,11 @@ public class EnemyController : MonoBehaviour
                 break;
         }
     }
+
+	static public void IncrementPlayerKills()
+	{
+		++EnemiesDestroyedByPlayer;
+	}
 
     /// <summary>
     /// Method called when an objects collision mesh collides with the meshes of other game objects.
@@ -156,13 +161,12 @@ public class EnemyController : MonoBehaviour
     void OnDestroy()
     {
         Enemy.NrOfEnemies -= 1;
-        ++enemiesDestroyed;
         RestartRoutines();
     }
 
     protected void RestartRoutines()
     {
-        if (enemiesDestroyed == mainController.TotalEnemiesInWave)
+        if (EnemiesDestroyedByPlayer == mainController.TotalEnemiesInWave)
         {
             if (Enemy.NrOfEnemies == 0 && levelController.GetLives() != 0)
             {
@@ -172,7 +176,7 @@ public class EnemyController : MonoBehaviour
                 enemySpawner.SpawnPointCoroutine();
                 mainController.StartFromExternalSourceCoroutine();
             }
-            enemiesDestroyed = 0;
+            EnemiesDestroyedByPlayer = 0;
         }
     }
 }
