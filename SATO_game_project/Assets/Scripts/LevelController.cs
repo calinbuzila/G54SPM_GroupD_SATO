@@ -8,7 +8,6 @@ using System;
 
 public class LevelController : MonoBehaviour
 {
-
     public const int DefaultHealth = 100;
     public const int DefaultLives = 3;
     private string PlayerHighScores = "HighScores";
@@ -18,7 +17,6 @@ public class LevelController : MonoBehaviour
     public const int HealthLimit = 100;
     public const int LivesLimit = int.MaxValue;
     public const int ScoreLimit = int.MaxValue;
-    //TODO Consider branching score, lives, etc into their own sub-classes.
     protected static int PlayerScore;
     protected static int PlayerHealth;
     protected static int PlayerLives;
@@ -171,7 +169,10 @@ public class LevelController : MonoBehaviour
         if (PlayerHealth == 0)
         {
             float RespawnDelay = playerController.RespawnDelay;
-            if (playerController == null) return;
+			if (playerController == null)
+			{
+				return;
+			}
             playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
         }
