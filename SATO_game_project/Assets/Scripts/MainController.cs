@@ -62,7 +62,7 @@ public class MainController : MonoBehaviour
 		AdjustDifficultyOfEnemies ();
         UpdateWaveDisplay();
 		totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
-        Debug.Log("NROFENEMIESPER_WAVE" + totalEnemiesInWave);
+        Debug.Log("Number of enemies in new wave: " + totalEnemiesInWave);
 	}
 
 	protected void AdjustDifficultyOfEnemies()
@@ -174,10 +174,12 @@ public class MainController : MonoBehaviour
     {
         //while (true)
         //{
-        // first enemy will appear after set timer returns a delay in the start coroutine caller method
+        // first enemy will appear after set timer returns 
+		// a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
         CoroutineIsRunning = true;
-		// TODO Change logic to detect player kills and compare against wave amount.
+		// TODO Change logic to detect player kills and compare 
+		//		against wave amount.
         for (int i = 0; i < totalEnemiesInWave; i++)
         {
             SpawnEnemy();
