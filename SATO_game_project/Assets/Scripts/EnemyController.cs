@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+	static protected string DeletionTimerScriptString = "SelfDeletionTimer";
+	static protected System.Type SelfDeletionScriptType = 
+		System.Type.GetType(DeletionTimerScriptString + ",Assembly-CSharp");
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
 	static protected int MinimumEnemyDifficultyOffset = 0;
 	static protected int MaximumEnemyDifficultyOffset = 2;
@@ -33,14 +36,20 @@ public class EnemyController : MonoBehaviour
 	public GameObject enemyBullet;
 	public float fireRate;
 
-    void Start()
-    {
-        colourController = GameObject.FindObjectOfType<ColourController>();
-		mainController = GameObject.FindObjectOfType<MainController>();
-        levelController = GameObject.FindObjectOfType<LevelController>();
+    void Start ()
+	{
+		colourController = GameObject.FindObjectOfType<ColourController> ();
+		mainController = GameObject.FindObjectOfType<MainController> ();
+		levelController = GameObject.FindObjectOfType<LevelController> ();
 
-        colourController.AssignRandomColour(gameObject);
-        randomBehaviourNumber = Random.Range(MinimumEnemyDifficultyOffset, NumBehaviours - MaximumEnemyDifficultyOffset);
+		colourController.AssignRandomColour (gameObject);
+		randomBehaviourNumber = Random.Range (MinimumEnemyDifficultyOffset, NumBehaviours - MaximumEnemyDifficultyOffset);
+		// Attaches the SelfDeletionTimer script to any kamikaze enemies that spawn.
+		if (randomBehaviourNumber == (int)Behaviours.Kamikaze
+		    || randomBehaviourNumber == (int)Behaviours.HomingKamikaze) 
+		{
+			gameObject.AddComponent(SelfDeletionScriptType);
+		}
     }
 
 	public int getEnemyBehaviourNumber()
