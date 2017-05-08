@@ -57,9 +57,10 @@ public class LevelController : MonoBehaviour
     {
         if (PlayerLives == 0)
         {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene(0);
             }
         }
     }
@@ -317,7 +318,7 @@ public class LevelController : MonoBehaviour
 
 
     // when getting high scores need to check if it is an empty string: !String.IsNullOrEmpty(value)
-    protected string GetHighScores()
+    public string GetHighScores()
     {
         if (PlayerPrefs.HasKey(PlayerHighScores))
         {
@@ -335,6 +336,6 @@ public class LevelController : MonoBehaviour
 
     protected void DisplayResetText()
     {
-        resetText.text = "Press 'R' to reset!";
+        resetText.text = "Press 'ESC' to go back to main menu!";
     }
 }
