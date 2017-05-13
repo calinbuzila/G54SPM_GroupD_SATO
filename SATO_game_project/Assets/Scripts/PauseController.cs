@@ -30,17 +30,31 @@ public class PauseController : MonoBehaviour
         if (isPaused == true)
         {
             pausePanel.SetActive(true);
+            Time.timeScale = 0;
         }
         else if (isPaused == false)
         {
             pausePanel.SetActive(false);
             quitPanel.SetActive(false);
+            StartCoroutine(StartTimer());
         }
-        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
     }
 
     public bool GetPauseStatus()
     {
         return isPaused;
+    }
+
+    IEnumerator StartTimer()
+    {
+        countdownText.enabled = true;
+        countdownText.text = "3";
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "2";
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.text = "1";
+        yield return new WaitForSecondsRealtime(1);
+        countdownText.enabled = false;
+        Time.timeScale = 1;
     }
 }
