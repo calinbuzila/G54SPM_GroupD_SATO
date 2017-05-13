@@ -15,6 +15,7 @@ public class MainController : MonoBehaviour
     public Transform mainBoundary;
     public GameObject enemySpawner;
     public Text waveText;
+    public Text countdownText;
     public int initialNumberOfEnemies;
     public float spawnWait;
     public float spawnStartWait;
@@ -37,6 +38,7 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StartTimer());
         UpdateWaveDisplay();
 		totalEnemiesInWave = initialNumberOfEnemies;
         MoveSpawner();
@@ -241,5 +243,16 @@ public class MainController : MonoBehaviour
                Destroy(allObjects[i]);
             //}
         }
+    }
+
+    IEnumerator StartTimer()
+    {
+        countdownText.text = "3";
+        yield return new WaitForSeconds(1);
+        countdownText.text = "2";
+        yield return new WaitForSeconds(1);
+        countdownText.text = "1";
+        yield return new WaitForSeconds(1);
+        countdownText.enabled = false;
     }
 }

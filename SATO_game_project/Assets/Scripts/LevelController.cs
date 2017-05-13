@@ -12,6 +12,7 @@ public class LevelController : MonoBehaviour
     public const int DefaultLives = 3;
     private string PlayerHighScores = "HighScores";
     public const int DefaultScore = 0;
+    protected bool isGameOver = false;
     // control variable used for erasing all the data from the user prefs files.
     public bool RemoveUserScores;
     public const int HealthLimit = 100;
@@ -26,7 +27,7 @@ public class LevelController : MonoBehaviour
     public Text healthText;
     public Text lifeText;
     public Text highScoreText;
-    public Text resetText;
+    public GameObject endPanel;
     protected RespawnPointController respawnPointController;
     protected PlayerController playerController;
     protected MainController mainController;
@@ -49,20 +50,6 @@ public class LevelController : MonoBehaviour
         respawnPointController = GameObject.FindObjectOfType<RespawnPointController>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
         mainController = GameObject.FindObjectOfType<MainController>();
-        highScoreText.text = "";
-        resetText.text = "";
-    }
-
-    void Update()
-    {
-        if (PlayerLives == 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                SceneManager.LoadScene(0);
-            }
-        }
     }
 
     public void IncrementScore()
@@ -189,8 +176,8 @@ public class LevelController : MonoBehaviour
             SaveScore(PlayerScore);
             mainController.DestroyAllEnemies();
             mainController.StopAllCoroutines();
-            UpdateHighScoreDisplay();
-            DisplayResetText();
+            isGameOver = true;
+            DisplayEndPanel();
         }
     }
 
@@ -334,8 +321,14 @@ public class LevelController : MonoBehaviour
         highScoreText.text = "Highscores:\n" + GetHighScores();
     }
 
-    protected void DisplayResetText()
+    protected void DisplayEndPanel()
     {
-        resetText.text = "Press 'ESC' to go back to main menu!";
+        UpdateHighScoreDisplay();
+        endPanel.SetActive(true);
+    }
+
+    public bool GetGameOverStatus()
+    {
+        return isGameOver;
     }
 }

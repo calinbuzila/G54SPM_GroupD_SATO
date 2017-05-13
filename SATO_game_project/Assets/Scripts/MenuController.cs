@@ -21,20 +21,6 @@ public class MenuController : MonoBehaviour {
         difficultySlider.onValueChanged.AddListener(delegate { UpdateDifficultyValue(); });
     }
 
-    public void LoadSceneByIndex(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-    }
-
-    public void QuitScene()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-    }
-
     public void UpdateDifficultyValue()
     {
         Debug.Log("Difficulty Number: " + difficultySlider.value);
