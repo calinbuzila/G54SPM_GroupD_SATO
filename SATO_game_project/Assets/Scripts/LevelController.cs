@@ -115,8 +115,9 @@ public class LevelController : MonoBehaviour
         CheckNotNegative(ref PlayerHealth);
         ResetHealthIfZero();
         CheckHealthNotExceeding();
-        if (healthText != null) { 
-        UpdateHealthDisplay();
+        if (healthText != null) 
+		{ 
+        	UpdateHealthDisplay();
         }
     }
 
@@ -130,8 +131,9 @@ public class LevelController : MonoBehaviour
         PlayerLives = value;
         CheckNotNegative(ref PlayerLives);
         CheckLivesNotExceeding();
-        if (lifeText != null) { 
-        UpdateLifeDisplay();
+        if (lifeText != null) 
+		{ 
+        	UpdateLifeDisplay();
         }
     }
 
@@ -147,7 +149,7 @@ public class LevelController : MonoBehaviour
         CheckScoreNotExceeding();
         if (scoreText != null) 
         { 
-        UpdateScoreDisplay();
+        	UpdateScoreDisplay();
         }
     }
 
@@ -165,11 +167,11 @@ public class LevelController : MonoBehaviour
     {
         if (PlayerHealth == 0)
         {
-            float RespawnDelay = playerController.RespawnDelay;
 			if (playerController == null)
 			{
 				return;
 			}
+            float RespawnDelay = playerController.RespawnDelay;
             playerController.KillPlayer();
             StartCoroutine(RespawnTimer(RespawnDelay));
         }
