@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
 		System.Type.GetType(DeletionTimerScriptString + ",Assembly-CSharp");
 	static protected int NumBehaviours = (int)System.Enum.GetNames(typeof(Behaviours)).Length;
 	static protected int MinimumEnemyDifficultyOffset = 0;
-	static protected int MaximumEnemyDifficultyOffset = 2;
+	static protected int MaximumEnemyDifficultyOffset = 3;
 	static public int EnemiesDestroyedByPlayer = 0;
 
 	protected ColourController colourController;
