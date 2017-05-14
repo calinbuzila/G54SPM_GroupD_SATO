@@ -28,6 +28,7 @@ public class ColourController : MonoBehaviour {
         tagArray[2] = "Green";
         tagArray[3] = "Blue";
         tagArray[4] = "Cyan";
+		tagArray[5] = "Orange";
 	}
 
     public void AssignBulletColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
