@@ -15,6 +15,8 @@ public class ColourController : MonoBehaviour {
     protected Shader standardShader;
     protected int BulletColourIndex;
 
+	static protected int colourLimit = 3;
+
     private int randomMaterialSelector;
 
 	void Start(){
@@ -28,6 +30,12 @@ public class ColourController : MonoBehaviour {
         tagArray[2] = "Green";
         tagArray[3] = "Blue";
         tagArray[4] = "Cyan";
+		tagArray[5] = "Orange";
+	}
+
+	static public void SetColourLimit (int newLimit)
+	{
+		colourLimit = newLimit;
 	}
 
     public void AssignBulletColour(GameObject myGameObject, int ColourArrayIndex = DefaultBulletColourIndex)
@@ -40,11 +48,10 @@ public class ColourController : MonoBehaviour {
         myGameObject.tag = tagArray[BulletColourIndex];
     }
 
-    //TODO split method for bullet and enemy into two methods.
     public void AssignRandomColour(GameObject myGameObject, bool isBullet = false)
     {
         Renderer rend = myGameObject.GetComponent<Renderer>();
-		randomMaterialSelector = Random.Range(0, materialsArray.Length);
+		randomMaterialSelector = Random.Range(0, colourLimit);
  		rend.material = materialsArray [randomMaterialSelector];
         if (isBullet)
         {
@@ -100,9 +107,9 @@ public class ColourController : MonoBehaviour {
     {
         if (value < 0)
         {
-            value = materialsArray.Length-1;
+			value = colourLimit - 1;
         }
-        if (value > materialsArray.Length-1)
+        if (value > colourLimit - 1)
         {
             value = 0;
         }

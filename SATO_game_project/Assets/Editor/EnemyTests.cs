@@ -30,7 +30,7 @@ public class EnemyTests
     [Test]
     public void MinimumSpawningEnemies()
     {
-        Enemy enemy = new Enemy();
+        //Enemy enemy = new Enemy();
         Debug.Log(Enemy.NrOfEnemies);
         Assert.That(Enemy.NrOfEnemies, Is.GreaterThanOrEqualTo(1));
 
@@ -42,7 +42,7 @@ public class EnemyTests
     [Test]
     public void MaximumSpawningEnemies()
     {
-        Enemy enemy = new Enemy();
+        //Enemy enemy = new Enemy();
         //Debug.Log(enemy.NrOfEnemies);
         Assert.That(Enemy.NrOfEnemies, Is.LessThanOrEqualTo(7));
 

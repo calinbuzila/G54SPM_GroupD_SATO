@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public static bool SpawnerInRightPosition = true;
     public static Vector3 spawnerPosition;
     MainController mainController;
+
     void Start()
     {
         mainController = GameObject.FindObjectOfType(typeof(MainController)) as MainController;

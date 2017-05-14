@@ -2,22 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
 
 public class MainController : MonoBehaviour
 {
-	public static bool EnemyWasPlaced = false;
-	public static bool CoroutineIsRunning = false;
+    public static bool EnemyWasPlaced = false;
+    public static bool CoroutineIsRunning = false;
 
     protected Enemy enemyModel;
     public GameObject enemyShip;
     public Transform mainBoundary;
     public GameObject enemySpawner;
-    public int nrOfEnemies;
+    public Text waveText;
+    public Text countdownText;
+    public int initialNumberOfEnemies;
     public float spawnWait;
     public float spawnStartWait;
     public float spawnWaveWait;
+    private int difficulty;
+    private string GameDifficultyPrefs = "GameDifficulty";
 
-	protected RespawnPointController respawnPointController;
+    protected int totalEnemiesInWave;
+    protected int waveNumber = 1;
+    // Doubles each wave.
+    static protected int WaveEnemyGrowthRate = 2;
+
+    protected RespawnPointController respawnPointController;
 
     /// <summary>
     /// Called before Start, use usually for initialisations of model objects
@@ -29,10 +40,65 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+        GameDifficulty = PlayerPrefs.GetInt(GameDifficultyPrefs, 0);
+        StartCoroutine(StartTimer());
+        UpdateWaveDisplay();
+        totalEnemiesInWave = initialNumberOfEnemies;
         MoveSpawner();
         StartCoroutine(SpawnEnemies());
-		respawnPointController = GameObject.FindObjectOfType<RespawnPointController> ();
-		respawnPointController.Respawn ();
+        respawnPointController = GameObject.FindObjectOfType<RespawnPointController>();
+        respawnPointController.Respawn();
+    }
+
+    public int TotalEnemiesInWave
+    {
+        get { return totalEnemiesInWave; }
+        set { totalEnemiesInWave = value; }
+    }
+
+    public int GameDifficulty
+	{
+		get { return difficulty; }
+		set { difficulty = value; } 
+	}
+
+    public int GetWaveNumber()
+    {
+        return waveNumber;
+    }
+
+    public void IncrementWave()
+    {
+        ++waveNumber;
+        AdjustDifficultyOfEnemies();
+        UpdateWaveDisplay();
+        totalEnemiesInWave = totalEnemiesInWave * WaveEnemyGrowthRate;
+        Debug.Log("Number of enemies in new wave: " + totalEnemiesInWave);
+    }
+
+    protected void AdjustDifficultyOfEnemies()
+    {
+        switch (waveNumber)
+        {
+            // Disable idle enemies and enable kamikaze on wave 2.
+            case 2:
+				ColourController.SetColourLimit(4);
+                EnemyController.SetMinimumEnemyDifficultyOffset(1);
+                EnemyController.SetMaximumEnemyDifficultyOffset(2);
+                break;
+            // Disable straight shooters and enable rotating shooters on wave 3.
+            case 3:
+				ColourController.SetColourLimit(5);
+                EnemyController.SetMinimumEnemyDifficultyOffset(2);
+                EnemyController.SetMaximumEnemyDifficultyOffset(1);
+                break;
+            // Disable straight flying kamikaze enemies and enable homing kamikaze enemies on wave 4.
+            case 4:
+				ColourController.SetColourLimit(6);
+                EnemyController.SetMinimumEnemyDifficultyOffset(3);
+				EnemyController.SetMaximumEnemyDifficultyOffset(0);
+                break;
+        }
     }
 
     /// <summary>
@@ -102,12 +168,12 @@ public class MainController : MonoBehaviour
                     EnemyWasPlaced = false;
                     MoveSpawner();
                 }
-			}
+            }
             // if statement used for getting information for enemy tests
             if (newEnemy != null)
             {
                 // !!!Run the test after running the scene, the increased number still persists
-				Enemy.NrOfEnemies += 1;
+                Enemy.NrOfEnemies += 1;
                 enemyModel.Name = "Enemy";
                 Enemy.BoundaryX = mainBoundary.localScale.x;
                 Enemy.BoundaryZ = mainBoundary.localScale.z;
@@ -122,13 +188,15 @@ public class MainController : MonoBehaviour
     {
         //while (true)
         //{
-        // first enemy will appear after set timer returns a delay in the start coroutine caller method
+        // first enemy will appear after set timer returns 
+        // a delay in the start coroutine caller method
         yield return new WaitForSeconds(spawnStartWait);
         CoroutineIsRunning = true;
-        for (int i = 0; i < nrOfEnemies; i++)
+        // TODO Change logic to detect player kills and compare 
+        //		against wave amount.
+        for (int i = 0; i < totalEnemiesInWave; i++)
         {
             SpawnEnemy();
-            //after spawning first it returns a delay into the caller method: start coroutine
             yield return new WaitForSeconds(spawnWait);
         }
         CoroutineIsRunning = false;
@@ -154,20 +222,50 @@ public class MainController : MonoBehaviour
         {
             xAxis = Random.Range(mainBoundary.localScale.x / 2, mainBoundary.localScale.x - 7);
             zAxis = Random.Range((-mainBoundary.localScale.z / 2), mainBoundary.localScale.z / 2);
-            
+
         }
         Vector3 spawnPosition = new Vector3(xAxis, yAxis, zAxis);
         return spawnPosition;
     }
 
-	public void CheckStatusAndResetWaves()
-	{
-		if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
-		{
-			var spawner = enemySpawner.GetComponent<EnemySpawner>() as EnemySpawner;
-			Enemy.NrOfEnemies = 0;
-			spawner.SpawnPointCoroutine();
-			this.StartFromExternalSourceCoroutine ();
-		}
-	}
+    public void CheckStatusAndResetWaves()
+    {
+        if (Enemy.NrOfEnemies == 0 && !MainController.CoroutineIsRunning)
+        {
+            IncrementWave();
+            var spawner = enemySpawner.GetComponent<EnemySpawner>() as EnemySpawner;
+            Enemy.NrOfEnemies = 0;
+            spawner.SpawnPointCoroutine();
+            this.StartFromExternalSourceCoroutine();
+        }
+    }
+
+    protected void UpdateWaveDisplay()
+    {
+        waveText.text = "Wave: " + waveNumber;
+    }
+
+    public void DestroyAllEnemies()
+    {
+        GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>().Where(gameObject => gameObject.name.Contains("Enemy")).ToArray();
+        for (int i = 0; i < allObjects.Length; i++)
+        {
+            //if (allObjects[i].name.Contains("Enemy"))
+            //{
+            Destroy(allObjects[i]);
+            //}
+        }
+    }
+
+    IEnumerator StartTimer()
+    {
+        countdownText.text = "3";
+        yield return new WaitForSeconds(1);
+        countdownText.text = "2";
+        yield return new WaitForSeconds(1);
+        countdownText.text = "1";
+        yield return new WaitForSeconds(1);
+        countdownText.enabled = false;
+    }
+
 }

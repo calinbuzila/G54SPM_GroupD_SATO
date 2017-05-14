@@ -140,6 +140,8 @@ MonoBehaviour:
   mainController: {fileID: 0}
   isMoving: 0
   kamikazeSpeed: 20
+  homingSpeed: 15
+  homingTime: 1
   fireRate: 2
   enemyBullet: {fileID: 1731738886382010, guid: 7d1f2d524a6524be589489018ac02b97,
     type: 2}

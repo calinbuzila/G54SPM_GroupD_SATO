@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public GameObject shot;
     public Transform shotSpawn;
 	public float fireRate;
+    public PauseController pauseController;
 
 	protected float nextFire;
 
@@ -21,23 +22,27 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidBody = GetComponent<Rigidbody>();
 		colourController = GameObject.FindObjectOfType<ColourController>();
+        pauseController = GameObject.FindObjectOfType<PauseController>();
         colourController.AssignBulletColour(shot,colourController.GetBulletColourIndex());
     }
 
     void Update()
     {
-		if (Input.GetKeyDown (KeyCode.Space) && Time.time > nextFire)
-		{
-			nextFire = Time.time + fireRate;
-			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
-		}
-        if (Input.GetKeyDown (KeyCode.E))
+        if (pauseController.GetPauseStatus() == false)
         {
-            colourController.CycleToNextColour(shot);
-        }
-        if (Input.GetKeyDown (KeyCode.Q))
-        {
-            colourController.CycleToPreviousColour(shot);
+            if (Input.GetKeyDown(KeyCode.Space) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                colourController.CycleToNextColour(shot);
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                colourController.CycleToPreviousColour(shot);
+            }
         }
     }
 
