@@ -10,6 +10,6 @@ public class BulletMover : MonoBehaviour
 	void Start ()
 	{
 		bulletRigidBody = GetComponent<Rigidbody> ();
-		bulletRigidBody.velocity = transform.right * speed;
+		bulletRigidBody.velocity = transform.forward * speed;
 	}
 }
