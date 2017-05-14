@@ -161,8 +161,6 @@ public class LevelController : MonoBehaviour
         }
     }
 
-	// TODO This method needs splitting into several methods, 
-	//		it's doing more than one job, and it's affecting the unit tests.
     protected void ResetHealthIfZero()
     {
         if (PlayerHealth == 0)
