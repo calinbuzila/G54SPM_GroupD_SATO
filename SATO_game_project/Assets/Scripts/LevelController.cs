@@ -115,7 +115,9 @@ public class LevelController : MonoBehaviour
         CheckNotNegative(ref PlayerHealth);
         ResetHealthIfZero();
         CheckHealthNotExceeding();
+        if (healthText != null) { 
         UpdateHealthDisplay();
+        }
     }
 
     public int GetLives()
@@ -128,7 +130,9 @@ public class LevelController : MonoBehaviour
         PlayerLives = value;
         CheckNotNegative(ref PlayerLives);
         CheckLivesNotExceeding();
+        if (lifeText != null) { 
         UpdateLifeDisplay();
+        }
     }
 
     public int GetScore()
@@ -141,7 +145,10 @@ public class LevelController : MonoBehaviour
         PlayerScore = value;
         CheckNotNegative(ref PlayerScore);
         CheckScoreNotExceeding();
+        if (scoreText != null) 
+        { 
         UpdateScoreDisplay();
+        }
     }
 
     protected void CheckNotNegative(ref int value)
