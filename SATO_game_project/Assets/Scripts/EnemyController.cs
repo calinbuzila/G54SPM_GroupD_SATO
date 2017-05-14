@@ -109,7 +109,6 @@ public class EnemyController : MonoBehaviour
             {
                 levelController.AddToHealth(-20 * (mainController.GameDifficulty + 1));
                 Destroy(gameObject);
-				IncrementPlayerKills();
             }
             else
             {
@@ -183,6 +182,10 @@ public class EnemyController : MonoBehaviour
     void OnDestroy()
     {
         Enemy.NrOfEnemies -= 1;
+		// TODO Next sprint, apply IncrementPlayerKills to only the situations
+		//  	where the player has indeed killed the enemies.  Currently applies
+		//		to all situations of an enemy being destroyed.
+		IncrementPlayerKills();
         RestartRoutines();
     }
 
