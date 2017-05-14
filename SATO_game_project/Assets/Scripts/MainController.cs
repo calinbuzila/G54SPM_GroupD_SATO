@@ -80,22 +80,23 @@ public class MainController : MonoBehaviour
     {
         switch (waveNumber)
         {
-            // Disable idle enemies and enable rotating shooters on wave 2.
+            // Disable idle enemies and enable kamikaze on wave 2.
             case 2:
 				ColourController.SetColourLimit(4);
                 EnemyController.SetMinimumEnemyDifficultyOffset(1);
-                EnemyController.SetMaximumEnemyDifficultyOffset(1);
+                EnemyController.SetMaximumEnemyDifficultyOffset(2);
                 break;
-            // Disable straight shooters and enable homing kamikazes on wave 3.
+            // Disable straight shooters and enable rotating shooters on wave 3.
             case 3:
 				ColourController.SetColourLimit(5);
                 EnemyController.SetMinimumEnemyDifficultyOffset(2);
-                EnemyController.SetMaximumEnemyDifficultyOffset(0);
+                EnemyController.SetMaximumEnemyDifficultyOffset(1);
                 break;
-            // Disable straight flying kamikaze enemies on wave 4.
+            // Disable straight flying kamikaze enemies and enable homing kamikaze enemies on wave 4.
             case 4:
 				ColourController.SetColourLimit(6);
                 EnemyController.SetMinimumEnemyDifficultyOffset(3);
+				EnemyController.SetMaximumEnemyDifficultyOffset(0);
                 break;
         }
     }

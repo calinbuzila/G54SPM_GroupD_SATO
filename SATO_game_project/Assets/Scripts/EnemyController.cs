@@ -107,7 +107,7 @@ public class EnemyController : MonoBehaviour
             //var playerIsRespawning = other.GetComponent<Renderer>().enabled;
             if (!LevelController.playerIsRespawning)
             {
-                levelController.AddToHealth(-20);
+                levelController.AddToHealth(-20 * (mainController.GameDifficulty + 1));
                 Destroy(gameObject);
 				IncrementPlayerKills();
             }
