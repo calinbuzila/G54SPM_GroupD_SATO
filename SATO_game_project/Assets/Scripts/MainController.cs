@@ -22,7 +22,6 @@ public class MainController : MonoBehaviour
     public float spawnWaveWait;
     private int difficulty;
     private string GameDifficultyPrefs = "GameDifficulty";
-    public int GameDifficulty { get { return difficulty; } set { difficulty = value; } }
 
     protected int totalEnemiesInWave;
     protected int waveNumber = 1;
@@ -57,6 +56,12 @@ public class MainController : MonoBehaviour
         set { totalEnemiesInWave = value; }
     }
 
+    public int GameDifficulty
+	{
+		get { return difficulty; }
+		set { difficulty = value; } 
+	}
+
     public int GetWaveNumber()
     {
         return waveNumber;
@@ -81,7 +86,9 @@ public class MainController : MonoBehaviour
                 EnemyController.SetMaximumEnemyDifficultyOffset(1);
                 break;
             // Disable straight shooters and enable homing kamikazes on wave 3.
+			// Enable a sixth colour, orange.
             case 3:
+				ColourController.SetColourLimit(6);
                 EnemyController.SetMinimumEnemyDifficultyOffset(2);
                 EnemyController.SetMaximumEnemyDifficultyOffset(0);
                 break;
@@ -89,7 +96,6 @@ public class MainController : MonoBehaviour
             case 4:
                 EnemyController.SetMinimumEnemyDifficultyOffset(3);
                 break;
-            // TODO consider boss spawn on wave 5?
         }
     }
 
