@@ -21,10 +21,11 @@ GameObject:
   - component: {fileID: 4941303369311522}
   - component: {fileID: 33688350648389712}
   - component: {fileID: 136210066529413780}
-  - component: {fileID: 23269662525027870}
   - component: {fileID: 114236035573777670}
   - component: {fileID: 54681095760696822}
   - component: {fileID: 114547210108973092}
+  - component: {fileID: 23216921855228378}
+  - component: {fileID: 23269662525027870}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -74,9 +75,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!23 &23269662525027870
+--- !u!23 &23216921855228378
 MeshRenderer:
   m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1338093713979600}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 31b03bf889f5ea643a92611f27b931e3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &23269662525027870
+MeshRenderer:
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1338093713979600}
@@ -152,6 +184,7 @@ MonoBehaviour:
   shot: {fileID: 1731738886382010, guid: 56d04533da86d41209a07ebb2d9881df, type: 2}
   shotSpawn: {fileID: 4727945465964114}
   fireRate: 0.25
+  pauseController: {fileID: 0}
 --- !u!114 &114547210108973092
 MonoBehaviour:
   m_ObjectHideFlags: 1
