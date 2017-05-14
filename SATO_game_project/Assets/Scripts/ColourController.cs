@@ -15,7 +15,7 @@ public class ColourController : MonoBehaviour {
     protected Shader standardShader;
     protected int BulletColourIndex;
 
-	static protected int colourLimit = 5;
+	static protected int colourLimit = 3;
 
     private int randomMaterialSelector;
 
@@ -51,7 +51,7 @@ public class ColourController : MonoBehaviour {
     public void AssignRandomColour(GameObject myGameObject, bool isBullet = false)
     {
         Renderer rend = myGameObject.GetComponent<Renderer>();
-		randomMaterialSelector = Random.Range(0, colourLimit - 1);
+		randomMaterialSelector = Random.Range(0, colourLimit);
  		rend.material = materialsArray [randomMaterialSelector];
         if (isBullet)
         {
