@@ -3808,7 +3808,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 537573078}
   waveText: {fileID: 131810530}
   countdownText: {fileID: 388377039}
-  initialNumberOfEnemies: 2
+  initialNumberOfEnemies: 7
   spawnWait: 2
   spawnStartWait: 4
   spawnWaveWait: 0
