@@ -22,17 +22,23 @@ public class MenuController : MonoBehaviour
     {
         //levelController = GameObject.FindObjectOfType<LevelController>();
         //highscoreText.text = levelController.GetHighScores();
-        highscoreText.text = GetHighScoresFromPrefs();
+        if (highscoreText != null)
+        {
+            highscoreText.text = GetHighScoresFromPrefs();
+        }
         if (PlayerPrefs.HasKey(GameDifficulty))
         {
             DifficultyLevel = PlayerPrefs.GetInt(GameDifficulty);
-            difficultySlider.value = DifficultyLevel;
         }
         else
         {
             DifficultyLevel = DefaultDifficultyLevel;
         }
-        difficultySlider.onValueChanged.AddListener(delegate { UpdateDifficultyValue(); });
+        if (difficultySlider != null)
+        {
+            difficultySlider.value = DifficultyLevel;
+            difficultySlider.onValueChanged.AddListener(delegate { UpdateDifficultyValue(); });
+        }
     }
 
     public void UpdateDifficultyValue()
