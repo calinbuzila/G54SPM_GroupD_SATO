@@ -9,6 +9,8 @@ TagManager:
   - Green
   - Blue
   - Cyan
+  - GreenMaterial
+  - Orange
   layers:
   - Default
   - TransparentFX
