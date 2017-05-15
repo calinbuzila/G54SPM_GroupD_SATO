@@ -13,6 +13,7 @@ For more information, read the Design Documentation in the link below.
 Design Documentation Links:
 
 User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing
+
 Mid-Fidelity Document Link: https://docs.google.com/document/d/19Or5JE1Jney1VjZ5MJZbMemWfzKyWkqDQodDYxCPI-0/edit?usp=sharing
 
 Our Trello Board:
@@ -23,7 +24,5 @@ Conventions Document Link:
 
 https://docs.google.com/document/d/1GmDLD1p4A-1mWhBsHAR8BpqlI6U3gwNuH5TqvuoGDm4/edit?usp=sharing
 
-NOTE: If you clone the repository, be wary of how you run unit tests.  We are currently working on fixing a bug where the
-High Score screen will appear above the in-game screen if you run the unit tests in the Main_Scene scene.  Merely switch
-back to the Main_Menu scene and DO NOT save changes.  The tests are intended to be ran in the Main_Scene scene, not the
-MainMenu scene due to the tests using in-scene elements.
+NOTE: If you clone the repository, only run the unit tests from the Main_Scene scene.  They refer
+to scene objects that are not present in the MainMenu scene.
