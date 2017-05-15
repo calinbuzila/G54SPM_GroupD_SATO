@@ -13,8 +13,8 @@ For more information, read the Design Documentation in the link below.
 Design Documentation Links:
 
 User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing
-
 Mid-Fidelity Document Link: https://docs.google.com/document/d/19Or5JE1Jney1VjZ5MJZbMemWfzKyWkqDQodDYxCPI-0/edit?usp=sharing
+Ship Model Screenshots from Blender: Will be here after the demo! :)
 
 Our Trello Board:
 
