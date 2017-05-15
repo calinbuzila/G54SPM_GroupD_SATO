@@ -180,7 +180,10 @@ public class LevelController : MonoBehaviour
     {
         if (PlayerLives != 0)
         {
-            endPanel.SetActive(false);
+            if(endPanel != null)
+            {
+                endPanel.SetActive(false);
+            }
         }
         else if (PlayerLives == 0)
         {

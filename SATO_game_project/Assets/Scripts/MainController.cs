@@ -242,7 +242,10 @@ public class MainController : MonoBehaviour
 
     protected void UpdateWaveDisplay()
     {
-        waveText.text = "Wave: " + waveNumber;
+        if (waveText != null)
+        {
+            waveText.text = "Wave: " + waveNumber;
+        }
     }
 
     public void DestroyAllEnemies()
