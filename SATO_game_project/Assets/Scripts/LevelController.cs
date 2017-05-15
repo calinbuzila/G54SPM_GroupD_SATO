@@ -50,6 +50,7 @@ public class LevelController : MonoBehaviour
         respawnPointController = GameObject.FindObjectOfType<RespawnPointController>();
         playerController = GameObject.FindObjectOfType<PlayerController>();
         mainController = GameObject.FindObjectOfType<MainController>();
+        CheckLivesRemain();
     }
 
     public void IncrementScore()
@@ -177,7 +178,11 @@ public class LevelController : MonoBehaviour
 
     protected void CheckLivesRemain()
     {
-        if (PlayerLives == 0)
+        if (PlayerLives != 0)
+        {
+            endPanel.SetActive(false);
+        }
+        else if (PlayerLives == 0)
         {
             // Restarts the scene if the player runs out of lives.
             SaveScore(PlayerScore);

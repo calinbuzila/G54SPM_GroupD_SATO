@@ -3860,8 +3860,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -274.85617}
-  m_SizeDelta: {x: 260, y: 45.74773}
+  m_AnchoredPosition: {x: 200, y: -274.44763}
+  m_SizeDelta: {x: 260, y: 45.69921}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &475491501
 MonoBehaviour:
@@ -4563,8 +4563,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -229.10846}
-  m_SizeDelta: {x: 260, y: 45.74773}
+  m_AnchoredPosition: {x: 200, y: -228.74841}
+  m_SizeDelta: {x: 260, y: 45.69921}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &855041237
 MonoBehaviour:
@@ -5912,7 +5912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -5932,7 +5932,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Health: 0'
+  m_Text: 'Health: 100'
 --- !u!222 &1706597533
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6684,8 +6684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 200, y: -128.1173}
-  m_SizeDelta: {x: 260, y: 156.23459}
+  m_AnchoredPosition: {x: 200, y: -127.9494}
+  m_SizeDelta: {x: 260, y: 155.8988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129103913
 MonoBehaviour:
@@ -6721,15 +6721,15 @@ MonoBehaviour:
     m_LineSpacing: 0.8
   m_Text: 'Highscores:
 
-    0
+    44
 
-    0
+    38
 
-    0
+    23
 
-    0
+    21
 
-    0'
+    19'
 --- !u!222 &2129103914
 CanvasRenderer:
   m_ObjectHideFlags: 0
