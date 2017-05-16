@@ -10,6 +10,14 @@ both eyes to focus at all times and cooperate.
 
 For more information, read the Design Documentation in the link below.
 
+Assets Used:
+
+Unity Samples - UI:
+https://www.assetstore.unity3d.com/en/#!/content/25468
+
+Unity Test Tools:
+https://www.assetstore.unity3d.com/en/#!/content/13802
+
 Design Documentation Links:
 
 User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing
