@@ -10,14 +10,6 @@ both eyes to focus at all times and cooperate.
 
 For more information, read the Design Documentation in the link below.
 
-Assets Used:
-
-Unity Samples - UI:
-https://www.assetstore.unity3d.com/en/#!/content/25468
-
-Unity Test Tools:
-https://www.assetstore.unity3d.com/en/#!/content/13802
-
 Design Documentation Links:
 
 User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing
@@ -27,6 +19,14 @@ Mid-Fidelity Document Link: https://docs.google.com/document/d/19Or5JE1Jney1VjZ5
 Ship and Bullet Model Screenshots from Blender: https://drive.google.com/file/d/0B0ptPXBTNv08cjF0UUsyLVp1a2M/view?usp=sharing
 
 Ship and Bullet .obj Files: https://drive.google.com/file/d/0B0ptPXBTNv08bTBNMG1kNV9XLTg/view?usp=sharing
+
+Assets Used:
+
+Unity Samples - UI:
+https://www.assetstore.unity3d.com/en/#!/content/25468
+
+Unity Test Tools:
+https://www.assetstore.unity3d.com/en/#!/content/13802
 
 Our Trello Board:
 
