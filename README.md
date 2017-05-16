@@ -12,9 +12,12 @@ For more information, read the Design Documentation in the link below.
 
 Design Documentation Links:
 
-User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing\r
+User Stories: https://docs.google.com/document/d/10_wt7cGKeoRx8ZQ8n2sLYxnzZTv7Q3PusyDOetIm0Tg/edit?usp=sharing
+
 Mid-Fidelity Document Link: https://docs.google.com/document/d/19Or5JE1Jney1VjZ5MJZbMemWfzKyWkqDQodDYxCPI-0/edit?usp=sharing
+
 Ship and Bullet Model Screenshots from Blender: https://drive.google.com/file/d/0B0ptPXBTNv08cjF0UUsyLVp1a2M/view?usp=sharing
+
 Ship and Bullet .obj Files: https://drive.google.com/file/d/0B0ptPXBTNv08bTBNMG1kNV9XLTg/view?usp=sharing
 
 Our Trello Board:
